@@ -1,22 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum AttackRange { SingleAttack, SpinAttack, LongShot }
+
 public class Controller : MonoBehaviour
 {
 	public bool isPlayer2;
-	private KeyCode[] leftKeys, rightKeys, upKeys, downKeys;
+	private KeyCode[] leftKeys, rightKeys, upKeys, downKeys, attackKeys;
 	[HideInInspector]
-	public bool leftInput, rightInput, upInput, downInput;
+	public bool leftInput, rightInput, upInput, downInput, attackInput;
 
+	[HideInInspector]
+	public int orientation; // 0 means up, 1 means right, 2 means down, 3 means left
 	public Vector2 position;
 
 	public Transform self;
 
 	public BoardData board;
+	public TurnManager manager;
 
 	public int memoryAmount;
 	[HideInInspector]
 	public int[] storedMoves; // 0 means up, 1 means right, 2 means down, 3 means left
+
+	[HideInInspector]
+	public AttackRange range;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +36,10 @@ public class Controller : MonoBehaviour
 		}
 
 		RefreshPosition();
+
+		orientation = isPlayer2 ? 0 : 2;
+
+		range = AttackRange.SingleAttack;
 	}
 	
 	// Update is called once per frame
@@ -44,6 +56,7 @@ public class Controller : MonoBehaviour
 			rightKeys = KeyBindingP2.rightKeys;
 			upKeys = KeyBindingP2.upKeys;
 			downKeys = KeyBindingP2.downKeys;
+			attackKeys = KeyBindingP2.attackKeys;
 		}
 		else
 		{
@@ -51,6 +64,7 @@ public class Controller : MonoBehaviour
 			rightKeys = KeyBindingP1.rightKeys;
 			upKeys = KeyBindingP1.upKeys;
 			downKeys = KeyBindingP1.downKeys;
+			attackKeys = KeyBindingP1.attackKeys;
 		}
 	}
 
@@ -98,6 +112,15 @@ public class Controller : MonoBehaviour
 				downInput = true;
 			}
 		}
+
+		attackInput = false;
+		foreach(KeyCode key in attackKeys)
+		{
+			if(Input.GetKeyDown(key))
+			{
+				attackInput = true;
+			}
+		}
 	}
 
 	void UpdateSingleInput(KeyCode[] keys, bool input)
@@ -138,6 +161,9 @@ public class Controller : MonoBehaviour
 			case 3 :
 				MoveLeft();
 				break;
+			case 4 :
+				Attack();
+				break;
 		}
 
 		for(int i=1; i<storedMoves.Length; i++)
@@ -152,7 +178,8 @@ public class Controller : MonoBehaviour
 	{
 		//if(position.x == 0) return false;
 
-		position.x--;
+		orientation = 3;
+		if(manager.CheckRoom(position.x-1, position.y)) position.x--;
 		RefreshPosition();
 		//self.Translate(-board.tileSize.x, board.tileSize.y, 0);
 		return true;
@@ -162,7 +189,8 @@ public class Controller : MonoBehaviour
 	{
 		//if(position.x == board.width-1) return false;
 
-		position.x++;
+		orientation = 1;
+		if(manager.CheckRoom(position.x+1, position.y)) position.x++;
 		RefreshPosition();
 		//self.Translate(board.tileSize.x, -board.tileSize.y, 0);
 		return true;
@@ -172,7 +200,8 @@ public class Controller : MonoBehaviour
 	{
 		//if(position.y == board.height-1) return false;
 
-		position.y++;
+		orientation = 0;
+		if(manager.CheckRoom(position.x, position.y+1)) position.y++;
 		RefreshPosition();
 		//self.Translate(board.tileSize.x, board.tileSize.y, 0);
 		return true;
@@ -182,10 +211,38 @@ public class Controller : MonoBehaviour
 	{
 		//if(position.y == 0) return false;
 
-		position.y--;
+		orientation = 2;
+		if(manager.CheckRoom(position.x, position.y-1)) position.y--;
 		RefreshPosition();
 		//self.Translate(-board.tileSize.x, -board.tileSize.y, 0);
 		return true;
+	}
+
+	public void Attack()
+	{
+		if(range == AttackRange.SingleAttack) SingleAttack();
+		if(range == AttackRange.SpinAttack) SpinAttack();
+		if(range == AttackRange.LongShot) LongShot();
+	}
+
+	public void Die()
+	{
+
+	}
+
+	public void SingleAttack()
+	{
+
+	}
+
+	public void SpinAttack()
+	{
+
+	}
+
+	public void LongShot()
+	{
+
 	}
 
 	public void RefreshPosition()
