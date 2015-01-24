@@ -397,7 +397,7 @@ Prefab:
       objectReference: {fileID: 286455033}
     - target: {fileID: 21200000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
@@ -531,14 +531,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d929eef899ee74888f66e8194452a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer2: 0
+  isPlayer2: 1
   leftInput: 0
   rightInput: 0
   upInput: 0
   downInput: 0
   attackInput: 0
   orientation: 0
-  position: {x: 0, y: 0}
+  position: {x: 8, y: 8}
   self: {fileID: 474026834}
   selfRenderer: {fileID: 474026837}
   daggerRenderer: {fileID: 1509831963}
@@ -692,7 +692,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 336301965}
   m_GameObject: {fileID: 1425969331}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_LightmapIndex: 255
@@ -889,6 +889,18 @@ Prefab:
     - target: {fileID: 21200000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
+      propertyPath: position.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
+      propertyPath: position.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
+      propertyPath: isPlayer2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}

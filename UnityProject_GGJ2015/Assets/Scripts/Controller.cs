@@ -325,6 +325,7 @@ public class Controller : MonoBehaviour
 		if(orientation == 0 || orientation == 3) daggerRenderer.sortingOrder--;
 		else daggerRenderer.sortingOrder++;
 		selfAnim.SetInteger("I_Orientation", orientation);
+		daggerAnim.SetInteger("I_Orientation", orientation);
 
 		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
 		{

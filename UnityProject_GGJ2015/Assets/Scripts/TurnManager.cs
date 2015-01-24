@@ -30,7 +30,7 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 3;
-				players[turnIndex].cooldown--;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -40,7 +40,7 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 1;
-				players[turnIndex].cooldown--;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 0;
-				players[turnIndex].cooldown--;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -60,7 +60,7 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 2;
-				players[turnIndex].cooldown--;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -75,12 +75,12 @@ public class TurnManager : MonoBehaviour {
 				return;
 			}
 		}
-
+		if(players[turnIndex].attackInput && players[turnIndex].cooldown == 0)
+			Debug.Log ("heh");
 	}
 
 	public void ChangeTurn()
 	{
-		//Debug.Log ("hi");
 		turnIndex++;
 		if(turnIndex == players.Length) turnIndex = 0;
 
