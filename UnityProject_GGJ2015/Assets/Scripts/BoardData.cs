@@ -70,7 +70,7 @@ public class BoardData : MonoBehaviour {
 
 
 	string[][] readFile(string file){
-		string text = System.IO.File.ReadAllText(file);
+		string text = file;
 		string[] lines = Regex.Split(text, "\r\n");
 		int rows = lines.Length;
 		string[][] levelBase = new string[rows][];
@@ -101,9 +101,10 @@ public class BoardData : MonoBehaviour {
 
 //		object file = Resources.Load ("level" + levelNumber.ToString (), typeof(object));
 //		object fileProps = Resources.Load ("level" + levelNumber.ToString ()+"Props", typeof(object));
-		
-		string[][] jagged = readFile(Application.dataPath + "/level" + levelNumber.ToString ()+".txt");
-		string[][] jaggedProps = readFile(Application.dataPath + "/level" + levelNumber.ToString ()+"Props.txt");
+		TextAsset textAsset = Resources.Load ("level" + levelNumber.ToString (), typeof (TextAsset)) as TextAsset;
+		TextAsset textAssetProps = Resources.Load ("level" + levelNumber.ToString ()+"Props", typeof (TextAsset)) as TextAsset;
+		string[][] jagged = readFile(textAsset.text);
+		string[][] jaggedProps = readFile(textAssetProps.text);
 
 		spriteCollision = new List<Sprite> ();
 		spriteCollision.Add (v_lava);
