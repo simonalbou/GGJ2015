@@ -321,10 +321,10 @@ public class Controller : MonoBehaviour
 
 		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
 		{
-			Die ();
+			Die (DeathType.FellOff);
 			return;
 		}
 
-		if(board.isDeadly((int)position.x, (int)position.y)) Die ();
+		if(board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
 	}
 }

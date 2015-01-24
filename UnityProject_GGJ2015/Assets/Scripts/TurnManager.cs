@@ -114,7 +114,7 @@ public class TurnManager : MonoBehaviour {
 		{
 			if(ctrl.position.x == x && ctrl.position.y == y)
 			{
-				ctrl.Die();
+				ctrl.Die(DeathType.Stabbed);
 				return;
 			}
 		}
