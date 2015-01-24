@@ -1,5 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
+
+public enum TileName{
+	Default,
+	UpperLeftCorner,
+	UpperBorder,
+	UpperRightCorner,
+	RightBorder,
+	LowerRightCorner,
+	LowerBorder,
+	LowerLeftCorner,
+	LeftBorder,
+	Lava
+}
 
 public class BoardData : MonoBehaviour {
 
@@ -14,13 +28,50 @@ public class BoardData : MonoBehaviour {
 	public Sprite v_upperBorder, v_rightBorder,  v_lowerBorder, v_leftBorder;
 	public Sprite v_lava;
 
-	private Vector3 spawn, offsetX, offsetY;
+	[HideInInspector]
+	public Vector3 spawn, offsetX, offsetY;
 
 	[HideInInspector]
 	public SpriteRenderer[,] tilesSprites;
 
+
+	string[][] readFile(string file){
+		string text = System.IO.File.ReadAllText(file);
+		string[] lines = Regex.Split(text, "\r\n");
+		int rows = lines.Length;
+		string[][] levelBase = new string[rows][];
+		for (int i = 0; i < lines.Length; i++) {
+			string[] stringsOfLine = Regex.Split(lines[i], " ");
+			levelBase[i] = stringsOfLine;
+		}
+		return levelBase;
+	}
+
 	void Awake ()
 	{
+
+//		string[][] jagged = readFile("D:/level1.txt");
+//		// create planes based on matrix
+//		for (int y = 0; y < jagged.Length; y++) {
+//			for (int x = 0; x < jagged[0].Length; x++) {
+//				switch (jagged[y][x]){
+//				case sstart:
+//					Instantiate(floor_valid, new Vector3(x, 0, -y), Quaternion.identity);
+//					Instantiate(player, new Vector3(0, 0.5f, 0), Quaternion.identity);
+//					break;
+//				case sfloor_valid:
+//					Instantiate(floor_valid, new Vector3(x, 0, -y), Quaternion.identity);
+//					break;
+//				case sfloor_obstacle:
+//					Instantiate(floor_obstacle, new Vector3(x, 0, -y), Quaternion.identity);
+//					break;
+//				case sfloor_checkpoint:
+//					Instantiate(floor_checkpoint, new Vector3(x, 0, -y), Quaternion.identity);
+//				}
+//			}
+//		} 
+
+
 		offsetX = new Vector3(tileSize.x, -tileSize.y, 0);
 		offsetY = new Vector3(tileSize.x, tileSize.y, 0);
 
