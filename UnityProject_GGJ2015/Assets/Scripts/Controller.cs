@@ -16,8 +16,8 @@ public class Controller : MonoBehaviour
 	public Vector2 position;
 
 	public Transform self;
-	public Renderer selfRenderer;
-	public Animator selfAnim;
+	public Renderer selfRenderer, daggerRenderer;
+	public Animator selfAnim, daggerAnim;
 
 	public BoardData board;
 	public TurnManager manager;
@@ -245,7 +245,7 @@ public class Controller : MonoBehaviour
 
 	public void SingleAttack()
 	{
-		selfAnim.SetTrigger("TR_Stabs");
+		daggerAnim.SetTrigger("TR_Stabs");
 		switch(orientation)
 		{
 			case 0 :
@@ -274,7 +274,7 @@ public class Controller : MonoBehaviour
 
 	public void LongShot()
 	{
-		selfAnim.SetTrigger("TR_Shoots");
+		//daggerAnim.SetTrigger("TR_Shoots");
 		int i = 0;
 		switch(orientation)
 		{
@@ -320,11 +320,16 @@ public class Controller : MonoBehaviour
 	public void RefreshPosition()
 	{
 		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
-		selfRenderer.sortingOrder = (int) (position.x - position.y)*2+1;
+		selfRenderer.sortingOrder = (int) (position.x - position.y)*4+2;
+		daggerRenderer.sortingOrder = (int) (position.x - position.y)*4+2;
+		if(orientation == 0 || orientation == 3) daggerRenderer.sortingOrder--;
+		else daggerRenderer.sortingOrder++;
 		selfAnim.SetInteger("I_Orientation", orientation);
 
 		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
 		{
+			if(position.x < 0 || position.y >= board.height) selfRenderer.sortingOrder = -100;
+			if(position.x >= board.width || position.y < 0) selfRenderer.sortingOrder = 100;
 			Die (DeathType.FellOff);
 			return;
 		}
