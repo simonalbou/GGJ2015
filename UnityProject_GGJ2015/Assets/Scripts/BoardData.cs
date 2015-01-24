@@ -20,15 +20,20 @@ public class BoardData : MonoBehaviour {
 
 	public Transform self;
 
-	private int width, height;
+	public static int levelNumber;
+
+	[HideInInspector]
+	public int width, height;
 	public Vector2 tileSize;
 
 	public GameObject v_tile;
+	public GameObject v_prop;
 	public GameObject[,] tiles;
+	public GameObject[,] props;
 	public Sprite v_default;
 	public Sprite v_upperLeftCorner, v_upperRightCorner, v_lowerLeftCorner, v_lowerRightCorner;
 	public Sprite v_upperBorder, v_rightBorder,  v_lowerBorder, v_leftBorder;
-	public Sprite v_lava;
+	public Sprite v_lava, v_column, v_columnSmall, v_grass, v_rock, v_fire, v_statue, v_pine;
 
 	public const string Default = "0";
 	public const string UpperLeftCorner = "1";
@@ -39,13 +44,27 @@ public class BoardData : MonoBehaviour {
 	public const string LowerBorder = "6";
 	public const string LowerLeftCorner = "7";
 	public const string LeftBorder = "8";
-	public const string Lava = "9";
+
+	public const string None = "0";
+	public const string Column = "1";
+	public const string ColumnSmall = "2";
+	public const string Grass = "3";
+	public const string Rock = "4";
+	public const string Fire = "5";
+	public const string Statue = "6";
+	public const string Pine = "7";
+	public const string Lava = "8";
+
+
 
 	[HideInInspector]
 	public Vector3 spawn, offsetX, offsetY;
 
 	[HideInInspector]
 	public SpriteRenderer[,] tilesSprites;
+
+	[HideInInspector]
+	public SpriteRenderer[,] propsSprites;
 
 
 	string[][] readFile(string file){
@@ -64,7 +83,8 @@ public class BoardData : MonoBehaviour {
 	void Awake ()
 	{
 
-		string[][] jagged = readFile(Application.dataPath+"/level.txt");
+		string[][] jagged = readFile(Application.dataPath+"/level_"+ levelNumber +".txt");
+		string[][] jaggedProps = readFile(Application.dataPath+"/level_"+ levelNumber +"_props.txt");
 
 		width = jagged[0].Length;
 		height = jagged.Length;
@@ -75,6 +95,9 @@ public class BoardData : MonoBehaviour {
 
 		tiles = new GameObject[width,height];
 		tilesSprites = new SpriteRenderer[width,height];
+		props = new GameObject[width,height];
+		propsSprites = new SpriteRenderer[width,height];
+
 		for(int i=0; i<width; i++)
 		{
 			for(int j=0; j<height; j++)
@@ -86,7 +109,19 @@ public class BoardData : MonoBehaviour {
 			}
 		}
 
-		// create planes based on matrix
+		for(int i=0; i<width; i++)
+		{
+			for(int j=0; j<height; j++)
+			{
+				spawn = self.position + offsetX * i + offsetY * j;
+				props[i,j] = (GameObject) Instantiate(v_prop, spawn, Quaternion.identity);
+				propsSprites[i,j] = props[i,j].GetComponent<SpriteRenderer>();
+				props[i,j].transform.parent = self;
+			}
+		}
+	
+		
+		//génération sol
 		for (int y = 0; y < jagged.Length; y++) {
 			for (int x = 0; x < jagged[0].Length; x++) {
 				switch (jagged[y][x]){
@@ -99,25 +134,58 @@ public class BoardData : MonoBehaviour {
 					tilesSprites[x,y].sprite = v_upperBorder;
 					break;
 				case UpperRightCorner:
-
+					tilesSprites[x,y].sprite = v_upperRightCorner;
 					break;
 				case RightBorder:
-
+					tilesSprites[x,y].sprite = v_rightBorder;
 					break;
 				case LowerRightCorner:
-
+					tilesSprites[x,y].sprite = v_lowerRightCorner;
 					break;
 				case LowerBorder:
-
+					tilesSprites[x,y].sprite = v_lowerBorder;
 					break;
 				case LowerLeftCorner:
-
+					tilesSprites[x,y].sprite = v_lowerLeftCorner;
 					break;
 				case LeftBorder:
-			
+					tilesSprites[x,y].sprite = v_leftBorder;
+					break;
+				}
+			}
+		} 
+
+
+
+		//génération props
+		for (int y = 0; y < jaggedProps.Length; y++) {
+			for (int x = 0; x < jaggedProps[0].Length; x++) {
+				switch (jaggedProps[y][x]){
+				case None:
+					break;
+				case Column:
+					propsSprites[x,y].sprite = v_column;
+					break;
+				case ColumnSmall:
+					propsSprites[x,y].sprite = v_columnSmall;
+					break;
+				case Grass:
+					propsSprites[x,y].sprite = v_grass;
+					break;
+				case Rock:
+					propsSprites[x,y].sprite = v_rock;
+					break;
+				case Fire:
+					propsSprites[x,y].sprite = v_fire;
+					break;
+				case Statue:
+					propsSprites[x,y].sprite = v_statue;
+					break;
+				case Pine:
+					propsSprites[x,y].sprite = v_pine;
 					break;
 				case Lava:
-
+					propsSprites[x,y].sprite = v_lava;
 					break;
 				}
 			}
