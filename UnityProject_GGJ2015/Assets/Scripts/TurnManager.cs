@@ -8,18 +8,28 @@ public class TurnManager : MonoBehaviour {
 	public Controller[] players;
 	public Camera cam;
 
+	private bool gameOver;
+
 	void Start ()
 	{
 		turnIndex = 0;
+		gameOver = false;
 	}
 	
 	void Update ()
 	{
+		if(gameOver)
+		{
+			if(Input.anyKeyDown) Application.LoadLevel(Application.loadedLevel);
+			return;
+		}
+
 		if(players[turnIndex].leftInput)
 		{
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 3;
+				players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -29,6 +39,7 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 1;
+				players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -38,6 +49,7 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 0;
+				players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
@@ -47,10 +59,22 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 2;
+				players[turnIndex].cooldown--;
 				ChangeTurn();
 				return;
 			}
 		}
+		if(players[turnIndex].attackInput && players[turnIndex].cooldown == 0)
+		{
+			if(players[turnIndex].DoMove())
+			{
+				players[turnIndex].storedMoves[0] = 4;
+				players[turnIndex].cooldown = players[turnIndex].memoryAmount;
+				ChangeTurn();
+				return;
+			}
+		}
+
 	}
 
 	public void ChangeTurn()
@@ -84,7 +108,7 @@ public class TurnManager : MonoBehaviour {
 		return true;
 	}
 
-	public bool AttackTile(int x, int y)
+	public void AttackTile(float x, float y)
 	{
 		foreach(Controller ctrl in players)
 		{
@@ -94,5 +118,10 @@ public class TurnManager : MonoBehaviour {
 				return;
 			}
 		}
+	}
+
+	public void EndGame(bool pOneWins)
+	{
+
 	}
 }

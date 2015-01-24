@@ -15,6 +15,7 @@ public class Controller : MonoBehaviour
 	public Vector2 position;
 
 	public Transform self;
+	public Renderer selfRenderer;
 
 	public BoardData board;
 	public TurnManager manager;
@@ -25,6 +26,9 @@ public class Controller : MonoBehaviour
 
 	[HideInInspector]
 	public AttackRange range;
+
+	[HideInInspector]
+	public int cooldown;
 
 	// Use this for initialization
 	void Start () {
@@ -40,6 +44,8 @@ public class Controller : MonoBehaviour
 		orientation = isPlayer2 ? 0 : 2;
 
 		range = AttackRange.SingleAttack;
+
+		cooldown = 0;
 	}
 	
 	// Update is called once per frame
@@ -227,26 +233,83 @@ public class Controller : MonoBehaviour
 
 	public void Die()
 	{
-
+		manager.EndGame (isPlayer2);
 	}
 
 	public void SingleAttack()
 	{
-
+		switch(orientation)
+		{
+			case 0 :
+				manager.AttackTile (position.x, position.y+1);
+				break;
+			case 1 :
+				manager.AttackTile (position.x+1, position.y);
+				break;
+			case 2:
+				manager.AttackTile (position.x, position.y-1);
+				break;
+			case 3 :
+				manager.AttackTile (position.x-1, position.y);
+				break;
+		}
 	}
 
 	public void SpinAttack()
 	{
-
+		manager.AttackTile (position.x, position.y+1);
+		manager.AttackTile (position.x+1, position.y);
+		manager.AttackTile (position.x, position.y-1);
+		manager.AttackTile (position.x-1, position.y);
 	}
 
 	public void LongShot()
 	{
-
+		int i = 0;
+		switch(orientation)
+		{
+			case 0 :
+				manager.AttackTile (position.x, position.y+1);
+				while(i<board.height)
+				{
+					i++;
+					if(!board.IsWalkable(position.x, position.y+i)) break;
+					manager.AttackTile (position.x, position.y+i);
+				}
+				break;
+			case 1 :
+				manager.AttackTile (position.x+1, position.y);
+				while(i<board.width)
+				{
+					i++;
+					if(!board.IsWalkable(position.x+i, position.y)) break;
+					manager.AttackTile (position.x+i, position.y);
+				}
+				break;
+			case 2:
+				manager.AttackTile (position.x, position.y-1);
+				while(i<board.height)
+				{
+					i++;
+					if(!board.IsWalkable(position.x, position.y-i)) break;
+					manager.AttackTile (position.x, position.y-i);
+				}
+				break;
+			case 3 :
+				manager.AttackTile (position.x-1, position.y);
+				while(i<board.width)
+				{
+					i++;
+					if(!board.IsWalkable(position.x-i, position.y)) break;
+					manager.AttackTile (position.x-i, position.y);
+				}
+				break;
+		}
 	}
 
 	public void RefreshPosition()
 	{
 		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
+		selfRenderer.sortingOrder = (int) (position.y - position.x);
 	}
 }
