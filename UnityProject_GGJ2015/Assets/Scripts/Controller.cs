@@ -110,7 +110,8 @@ public class Controller : MonoBehaviour
 		//if(position.x == 0) return false;
 
 		position.x--;
-		self.Translate(-board.tileSize.x, board.tileSize.y, 0);
+		RefreshPosition();
+		//self.Translate(-board.tileSize.x, board.tileSize.y, 0);
 		return true;
 	}
 
@@ -119,7 +120,8 @@ public class Controller : MonoBehaviour
 		//if(position.x == board.width-1) return false;
 
 		position.x++;
-		self.Translate(board.tileSize.x, -board.tileSize.y, 0);
+		RefreshPosition();
+		//self.Translate(board.tileSize.x, -board.tileSize.y, 0);
 		return true;
 	}
 
@@ -128,7 +130,8 @@ public class Controller : MonoBehaviour
 		//if(position.y == board.height-1) return false;
 
 		position.y++;
-		self.Translate(board.tileSize.x, board.tileSize.y, 0);
+		RefreshPosition();
+		//self.Translate(board.tileSize.x, board.tileSize.y, 0);
 		return true;
 	}
 
@@ -137,7 +140,13 @@ public class Controller : MonoBehaviour
 		//if(position.y == 0) return false;
 
 		position.y--;
-		self.Translate(-board.tileSize.x, -board.tileSize.y, 0);
+		RefreshPosition();
+		//self.Translate(-board.tileSize.x, -board.tileSize.y, 0);
 		return true;
+	}
+
+	public void RefreshPosition()
+	{
+		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
 	}
 }
