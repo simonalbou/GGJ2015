@@ -2,6 +2,7 @@
 using System.Collections;
 
 public enum AttackRange { SingleAttack, SpinAttack, LongShot }
+public enum DeathType { Stabbed, Lava, FellOff }
 
 public class Controller : MonoBehaviour
 {
@@ -233,8 +234,11 @@ public class Controller : MonoBehaviour
 		if(range == AttackRange.LongShot) LongShot();
 	}
 
-	public void Die()
+	public void Die(DeathType death)
 	{
+		if(death == DeathType.FellOff) selfAnim.SetTrigger ("TR_FellOff");
+		if(death == DeathType.Lava) selfAnim.SetTrigger ("TR_Lava");
+		if(death == DeathType.Stabbed) selfAnim.SetTrigger ("TR_Stabbed");
 		manager.EndGame (isPlayer2);
 	}
 
@@ -314,5 +318,13 @@ public class Controller : MonoBehaviour
 		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
 		selfRenderer.sortingOrder = (int) (position.y - position.x)*2+1;
 		selfAnim.SetInteger("I_Orientation", orientation);
+
+		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
+		{
+			Die ();
+			return;
+		}
+
+		if(board.isDeadly((int)position.x, (int)position.y)) Die ();
 	}
 }

@@ -96,9 +96,9 @@ public class TurnManager : MonoBehaviour {
 
 	public bool CheckRoom(float x, float y)
 	{
-		if(x < 0 || y < 0) return false;
-		if(x >= board.width) return false;
-		if(y >= board.height) return false;
+		if(x < 0 || y < 0) return true; // il mourra
+		if(x >= board.width) return true; // là aussi
+		if(y >= board.height) return true; // là aussi
 
 		foreach(Controller ctrl in players)
 		{
