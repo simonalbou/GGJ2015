@@ -184,6 +184,7 @@ MonoBehaviour:
   v_fire: {fileID: 21300000, guid: e124051d57fd36f449c13a0ae6d1d6d1, type: 3}
   v_statue: {fileID: 21300000, guid: e124051d57fd36f449c13a0ae6d1d6d1, type: 3}
   v_pine: {fileID: 21300000, guid: e124051d57fd36f449c13a0ae6d1d6d1, type: 3}
+  spriteCollision: []
   spawn: {x: 0, y: 0, z: 0}
   offsetX: {x: 0, y: 0, z: 0}
   offsetY: {x: 0, y: 0, z: 0}
@@ -211,6 +212,7 @@ GameObject:
   - 4: {fileID: 204217924}
   - 114: {fileID: 204217926}
   - 212: {fileID: 204217925}
+  - 95: {fileID: 204217927}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -249,7 +251,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 3324980713
+  m_SortingLayerID: 1898203381
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a8d40144e0442e748b1f9ee09f6bfed6, type: 3}
   m_Color: {r: 0, g: 1, b: .958620548, a: 1}
@@ -274,11 +276,30 @@ MonoBehaviour:
   orientation: 0
   position: {x: 0, y: 0}
   self: {fileID: 204217924}
+  selfRenderer: {fileID: 204217925}
+  selfAnim: {fileID: 204217927}
   board: {fileID: 202940824}
   manager: {fileID: 286455033}
   memoryAmount: 2
   storedMoves: 
   range: 0
+  cooldown: 0
+--- !u!95 &204217927
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: d698aca681df0c445a2ace8a7dc877d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 2039827388}
+  m_GameObject: {fileID: 204217923}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baeeecd2719f3da47ba769750c0307b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &286455032
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +614,7 @@ GameObject:
   - 4: {fileID: 2025855010}
   - 114: {fileID: 2025855012}
   - 212: {fileID: 2025855011}
+  - 95: {fileID: 2025855013}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -631,7 +653,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 3324980713
+  m_SortingLayerID: 1898203381
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a8d40144e0442e748b1f9ee09f6bfed6, type: 3}
   m_Color: {r: 1, g: .253676474, b: .253676474, a: 1}
@@ -656,11 +678,30 @@ MonoBehaviour:
   orientation: 0
   position: {x: 8, y: 8}
   self: {fileID: 2025855010}
+  selfRenderer: {fileID: 2025855011}
+  selfAnim: {fileID: 2025855013}
   board: {fileID: 202940824}
   manager: {fileID: 286455033}
   memoryAmount: 2
   storedMoves: 
   range: 0
+  cooldown: 0
+--- !u!95 &2025855013
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: d698aca681df0c445a2ace8a7dc877d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 578780323}
+  m_GameObject: {fileID: 2025855009}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baeeecd2719f3da47ba769750c0307b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &2039827388
 Prefab:
   m_ObjectHideFlags: 0

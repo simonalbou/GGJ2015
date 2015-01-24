@@ -230,7 +230,7 @@ public class Controller : MonoBehaviour
 	{
 		if(range == AttackRange.SingleAttack) SingleAttack();
 		if(range == AttackRange.SpinAttack) SpinAttack();
-		//if(range == AttackRange.LongShot) LongShot();
+		if(range == AttackRange.LongShot) LongShot();
 	}
 
 	public void Die()
@@ -265,7 +265,6 @@ public class Controller : MonoBehaviour
 		manager.AttackTile (position.x-1, position.y);
 	}
 
-	/*
 	public void LongShot()
 	{
 		int i = 0;
@@ -276,7 +275,7 @@ public class Controller : MonoBehaviour
 				while(i<board.height)
 				{
 					i++;
-					if(!board.IsWalkable(position.x, position.y+i)) break;
+					if(!board.isWalkable((int)position.x, (int)position.y+i)) break;
 					manager.AttackTile (position.x, position.y+i);
 				}
 				break;
@@ -285,7 +284,7 @@ public class Controller : MonoBehaviour
 				while(i<board.width)
 				{
 					i++;
-					if(!board.IsWalkable(position.x+i, position.y)) break;
+				if(!board.isWalkable((int)position.x+i, (int)position.y)) break;
 					manager.AttackTile (position.x+i, position.y);
 				}
 				break;
@@ -294,7 +293,7 @@ public class Controller : MonoBehaviour
 				while(i<board.height)
 				{
 					i++;
-					if(!board.IsWalkable(position.x, position.y-i)) break;
+				if(!board.isWalkable((int)position.x, (int)position.y-i)) break;
 					manager.AttackTile (position.x, position.y-i);
 				}
 				break;
@@ -303,17 +302,17 @@ public class Controller : MonoBehaviour
 				while(i<board.width)
 				{
 					i++;
-					if(!board.IsWalkable(position.x-i, position.y)) break;
+				if(!board.isWalkable((int)position.x-i, (int)position.y)) break;
 					manager.AttackTile (position.x-i, position.y);
 				}
 				break;
 		}
-	}*/
+	}
 
 	public void RefreshPosition()
 	{
 		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
-		selfRenderer.sortingOrder = (int) (position.y - position.x);
+		selfRenderer.sortingOrder = (int) (position.y - position.x)*2+1;
 		selfAnim.SetInteger("I_Orientation", orientation);
 	}
 }
