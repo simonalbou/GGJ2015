@@ -89,7 +89,7 @@ public class BoardData : MonoBehaviour {
 	}
 
 	public bool isDeadly(int x, int y){
-		if(propsSprites[x,y].sprite = v_lava){
+		if(propsSprites[x,y].sprite == v_lava){
 			return true;
 		}
 		return false;
@@ -196,7 +196,7 @@ public class BoardData : MonoBehaviour {
 					break;
 				case Column:
 					propsSprites[x,y].sprite = v_column;
-					Debug.Log(isWalkable(x,y)); // <==
+					//Debug.Log(isWalkable(x,y)); // <==
 					break;
 				case ColumnSmall:
 					propsSprites[x,y].sprite = v_columnSmall;

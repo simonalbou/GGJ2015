@@ -32,6 +32,7 @@ public class Controller : MonoBehaviour
 	[HideInInspector]
 	public int cooldown;
 
+	public GameObject v_exploLava;
 
 	// Use this for initialization
 	void Start () {
@@ -244,6 +245,7 @@ public class Controller : MonoBehaviour
 
 	public void SingleAttack()
 	{
+		selfAnim.SetTrigger("TR_Stabs");
 		switch(orientation)
 		{
 			case 0 :
@@ -263,6 +265,7 @@ public class Controller : MonoBehaviour
 
 	public void SpinAttack()
 	{
+		selfAnim.SetTrigger("TR_Spins");
 		manager.AttackTile (position.x, position.y+1);
 		manager.AttackTile (position.x+1, position.y);
 		manager.AttackTile (position.x, position.y-1);
@@ -271,6 +274,7 @@ public class Controller : MonoBehaviour
 
 	public void LongShot()
 	{
+		selfAnim.SetTrigger("TR_Shoots");
 		int i = 0;
 		switch(orientation)
 		{
@@ -325,6 +329,12 @@ public class Controller : MonoBehaviour
 			return;
 		}
 
-		if(!board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
+		if(board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
+	}
+
+	// animation event
+	public void MagmaDeath()
+	{
+		Instantiate (v_exploLava, self.position, Quaternion.identity);
 	}
 }

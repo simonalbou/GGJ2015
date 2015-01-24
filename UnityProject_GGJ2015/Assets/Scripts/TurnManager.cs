@@ -20,6 +20,7 @@ public class TurnManager : MonoBehaviour {
 	{
 		if(gameOver)
 		{
+			cam.backgroundColor = Color.black;
 			if(Input.anyKeyDown) Application.LoadLevel(Application.loadedLevel);
 			return;
 		}
@@ -122,6 +123,7 @@ public class TurnManager : MonoBehaviour {
 
 	public void EndGame(bool pOneWins)
 	{
-
+		gameOver = true;
+		cam.backgroundColor = Color.black;
 	}
 }

@@ -284,6 +284,7 @@ MonoBehaviour:
   storedMoves: 
   range: 0
   cooldown: 0
+  v_exploLava: {fileID: 100000, guid: 242176721a3f4754b8919552c3b93e23, type: 2}
 --- !u!95 &204217927
 Animator:
   serializedVersion: 3
@@ -502,7 +503,7 @@ Prefab:
     - target: {fileID: 9500000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6136e9eaeafdd944587bb8e2dd313890, type: 2}
+      objectReference: {fileID: 9100000, guid: 1d855db5caf126b4ebcdd27e2379b01d, type: 2}
     - target: {fileID: 21200000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: m_Color.r
       value: 1
@@ -699,6 +700,7 @@ MonoBehaviour:
   storedMoves: 
   range: 0
   cooldown: 0
+  v_exploLava: {fileID: 100000, guid: 242176721a3f4754b8919552c3b93e23, type: 2}
 --- !u!95 &2025855013
 Animator:
   serializedVersion: 3
@@ -709,7 +711,7 @@ Animator:
   m_GameObject: {fileID: 2025855009}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6136e9eaeafdd944587bb8e2dd313890, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1d855db5caf126b4ebcdd27e2379b01d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
