@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Collections.Generic;
 
 public enum TileName{
 	Default,
@@ -55,7 +56,8 @@ public class BoardData : MonoBehaviour {
 	public const string Pine = "7";
 	public const string Lava = "8";
 
-
+	[HideInInspector]
+	public List<Sprite> spriteCollision;
 
 	[HideInInspector]
 	public Vector3 spawn, offsetX, offsetY;
@@ -79,6 +81,13 @@ public class BoardData : MonoBehaviour {
 		return levelBase;
 	}
 
+	bool isWalkable(int x, int y){
+		if(spriteCollision.Contains(propsSprites[x,y].sprite)){
+			return false;
+		}
+		return true;
+	}
+
 
 	void Awake ()
 	{
@@ -86,9 +95,18 @@ public class BoardData : MonoBehaviour {
 		string[][] jagged = readFile(Application.dataPath+"/level_"+ levelNumber +".txt");
 		string[][] jaggedProps = readFile(Application.dataPath+"/level_"+ levelNumber +"_props.txt");
 
+		spriteCollision = new List<Sprite> ();
+		spriteCollision.Add (v_lava);
+		spriteCollision.Add (v_column);
+		spriteCollision.Add (v_columnSmall);
+		spriteCollision.Add (v_grass);
+		spriteCollision.Add (v_rock);
+		spriteCollision.Add (v_fire);
+		spriteCollision.Add (v_statue);
+		spriteCollision.Add (v_pine);
+
 		width = jagged[0].Length;
 		height = jagged.Length;
-
 
 		offsetX = new Vector3(tileSize.x, -tileSize.y, 0);
 		offsetY = new Vector3(tileSize.x, tileSize.y, 0);
@@ -98,9 +116,10 @@ public class BoardData : MonoBehaviour {
 		props = new GameObject[width,height];
 		propsSprites = new SpriteRenderer[width,height];
 
-		for(int i=0; i<width; i++)
+
+		for(int j=0; j<height; j++)
 		{
-			for(int j=0; j<height; j++)
+			for(int i=0; i<width; i++)
 			{
 				spawn = self.position + offsetX * i + offsetY * j;
 				tiles[i,j] = (GameObject) Instantiate (v_tile, spawn, Quaternion.identity);
@@ -109,9 +128,10 @@ public class BoardData : MonoBehaviour {
 			}
 		}
 
-		for(int i=0; i<width; i++)
+
+		for(int j=0; j<height; j++)
 		{
-			for(int j=0; j<height; j++)
+			for(int i=0; i<width; i++)
 			{
 				spawn = self.position + offsetX * i + offsetY * j;
 				props[i,j] = (GameObject) Instantiate(v_prop, spawn, Quaternion.identity);
@@ -165,6 +185,7 @@ public class BoardData : MonoBehaviour {
 					break;
 				case Column:
 					propsSprites[x,y].sprite = v_column;
+					Debug.Log(isWalkable(x,y)); // <==
 					break;
 				case ColumnSmall:
 					propsSprites[x,y].sprite = v_columnSmall;
