@@ -6,6 +6,9 @@ public enum DeathType { Stabbed, Lava, FellOff }
 
 public class Controller : MonoBehaviour
 {
+	public float speed;
+	public Vector3 targetPos;
+
 	public bool isPlayer2;
 	private KeyCode[] leftKeys, rightKeys, upKeys, downKeys, attackKeys;
 	[HideInInspector]
@@ -34,6 +37,10 @@ public class Controller : MonoBehaviour
 
 	public GameObject v_exploLava;
 
+	private bool dead;
+
+	private bool stillMoving;
+
 	// Use this for initialization
 	void Start () {
 		LoadInput();
@@ -50,10 +57,22 @@ public class Controller : MonoBehaviour
 		cooldown = 0;
 
 		RefreshPosition();
+
+		self.position = targetPos;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(dead) return;
+		if(stillMoving)
+		{
+			self.Translate(Vector3.Normalize(targetPos-self.position) * speed * Time.deltaTime);
+			if(Vector3.Distance(targetPos, self.position) < 0.1f)
+			{
+				self.position = targetPos;
+				stillMoving = false;
+			}
+		}
 		UpdateInput();
 		//if(leftInput) Debug.Log (name);
 	}
@@ -237,6 +256,7 @@ public class Controller : MonoBehaviour
 
 	public void Die(DeathType death)
 	{
+		dead = true;
 		if(death == DeathType.FellOff) selfAnim.SetTrigger ("TR_FellOff");
 		if(death == DeathType.Lava) selfAnim.SetTrigger ("TR_Lava");
 		if(death == DeathType.Stabbed) selfAnim.SetTrigger ("TR_Stabbed");
@@ -284,7 +304,7 @@ public class Controller : MonoBehaviour
 				{
 					i++;
 					if(!board.isWalkable((int)position.x, (int)position.y+i)) break;
-					manager.AttackTile (position.x, position.y+i);
+						manager.AttackTile (position.x, position.y+i);
 				}
 				break;
 			case 1 :
@@ -292,8 +312,8 @@ public class Controller : MonoBehaviour
 				while(i<board.width)
 				{
 					i++;
-				if(!board.isWalkable((int)position.x+i, (int)position.y)) break;
-					manager.AttackTile (position.x+i, position.y);
+					if(!board.isWalkable((int)position.x+i, (int)position.y)) break;
+						manager.AttackTile (position.x+i, position.y);
 				}
 				break;
 			case 2:
@@ -301,8 +321,8 @@ public class Controller : MonoBehaviour
 				while(i<board.height)
 				{
 					i++;
-				if(!board.isWalkable((int)position.x, (int)position.y-i)) break;
-					manager.AttackTile (position.x, position.y-i);
+					if(!board.isWalkable((int)position.x, (int)position.y-i)) break;
+						manager.AttackTile (position.x, position.y-i);
 				}
 				break;
 			case 3 :
@@ -310,8 +330,8 @@ public class Controller : MonoBehaviour
 				while(i<board.width)
 				{
 					i++;
-				if(!board.isWalkable((int)position.x-i, (int)position.y)) break;
-					manager.AttackTile (position.x-i, position.y);
+					if(!board.isWalkable((int)position.x-i, (int)position.y)) break;
+						manager.AttackTile (position.x-i, position.y);
 				}
 				break;
 		}
@@ -319,7 +339,8 @@ public class Controller : MonoBehaviour
 
 	public void RefreshPosition()
 	{
-		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
+		targetPos = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
+		stillMoving = true;
 		selfRenderer.sortingOrder = (int) (position.x - position.y)*4+2;
 		daggerRenderer.sortingOrder = (int) (position.x - position.y)*4+2;
 		if(orientation == 0 || orientation == 3) daggerRenderer.sortingOrder--;

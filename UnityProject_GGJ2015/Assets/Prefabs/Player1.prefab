@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d929eef899ee74888f66e8194452a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
+  targetPos: {x: 0, y: 0, z: 0}
   isPlayer2: 0
   leftInput: 0
   rightInput: 0
@@ -116,7 +118,7 @@ MonoBehaviour:
   daggerAnim: {fileID: 9500000}
   board: {fileID: 0}
   manager: {fileID: 0}
-  memoryAmount: 2
+  memoryAmount: 1
   storedMoves: 
   range: 0
   cooldown: 0
