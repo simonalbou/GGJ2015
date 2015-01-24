@@ -124,7 +124,7 @@ public class BoardData : MonoBehaviour {
 		//génération sol
 		for (int y = 0; y < jagged.Length; y++) {
 			for (int x = 0; x < jagged[0].Length; x++) {
-				switch (jagged[y][x]){
+				switch (jagged[x][y]){
 				case Default:
 					break;
 				case UpperLeftCorner:
@@ -160,7 +160,7 @@ public class BoardData : MonoBehaviour {
 		//génération props
 		for (int y = 0; y < jaggedProps.Length; y++) {
 			for (int x = 0; x < jaggedProps[0].Length; x++) {
-				switch (jaggedProps[y][x]){
+				switch (jaggedProps[x][y]){
 				case None:
 					break;
 				case Column:
