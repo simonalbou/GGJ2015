@@ -1,0 +1,9 @@
+None = "0";
+Column = "1";
+ColumnSmall = "2";
+Grass = "3";
+Rock = "4";
+Fire = "5";
+Statue = "6";
+Pine = "7";
+Lava = "8";

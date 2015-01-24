@@ -34,7 +34,8 @@ public class BoardData : MonoBehaviour {
 	public Sprite v_default;
 	public Sprite v_upperLeftCorner, v_upperRightCorner, v_lowerLeftCorner, v_lowerRightCorner;
 	public Sprite v_upperBorder, v_rightBorder,  v_lowerBorder, v_leftBorder;
-	public Sprite v_lava, v_column, v_columnSmall, v_grass, v_rock, v_fire, v_statue, v_pine;
+	public Sprite v_lava, v_column, v_columnSmall, v_rock, v_fire, v_statue;
+	public GameObject particlesLava, particlesFire, v_pine;
 
 	public const string Default = "0";
 	public const string UpperLeftCorner = "1";
@@ -49,12 +50,12 @@ public class BoardData : MonoBehaviour {
 	public const string None = "0";
 	public const string Column = "1";
 	public const string ColumnSmall = "2";
-	public const string Grass = "3";
+	public const string Lava = "3";
 	public const string Rock = "4";
 	public const string Fire = "5";
 	public const string Statue = "6";
 	public const string Pine = "7";
-	public const string Lava = "8";
+
 
 	[HideInInspector]
 	public List<Sprite> spriteCollision;
@@ -82,7 +83,7 @@ public class BoardData : MonoBehaviour {
 	}
 
 	public bool isWalkable(int x, int y){
-		if(spriteCollision.Contains(propsSprites[x,y].sprite)){
+		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].gameObject == v_pine){
 			return false;
 		}
 		return true;
@@ -110,11 +111,9 @@ public class BoardData : MonoBehaviour {
 		spriteCollision.Add (v_lava);
 		spriteCollision.Add (v_column);
 		spriteCollision.Add (v_columnSmall);
-		spriteCollision.Add (v_grass);
 		spriteCollision.Add (v_rock);
 		spriteCollision.Add (v_fire);
 		spriteCollision.Add (v_statue);
-		spriteCollision.Add (v_pine);
 
 		width = jagged[0].Length;
 		height = jagged.Length;
@@ -157,6 +156,7 @@ public class BoardData : MonoBehaviour {
 			for (int x = 0; x < jagged[0].Length; x++) {
 				switch (jagged[x][y]){
 				case Default:
+					tilesSprites[x,y].sprite = v_default;
 					break;
 				case UpperLeftCorner:
 					tilesSprites[x,y].sprite = v_upperLeftCorner;
@@ -201,23 +201,30 @@ public class BoardData : MonoBehaviour {
 				case ColumnSmall:
 					propsSprites[x,y].sprite = v_columnSmall;
 					break;
-				case Grass:
-					propsSprites[x,y].sprite = v_grass;
+				case Lava:
+					propsSprites[x,y].sprite = v_lava;
+					GameObject cloneLava = Instantiate(particlesLava, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.2f,0), Quaternion.identity) as GameObject;
+					ParticleSystem[] particlesArrayLava = cloneLava.GetComponentsInChildren<ParticleSystem>();
+					foreach (ParticleSystem i in particlesArrayLava){
+						i.gameObject.layer = LayerMask.NameToLayer("Particles");
+					}
 					break;
 				case Rock:
 					propsSprites[x,y].sprite = v_rock;
 					break;
 				case Fire:
 					propsSprites[x,y].sprite = v_fire;
+					GameObject cloneFire = Instantiate(particlesFire, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.6f,0), Quaternion.identity) as GameObject;
+					ParticleSystem[] particlesArrayFire = cloneFire.GetComponentsInChildren<ParticleSystem>();
+					foreach (ParticleSystem i in particlesArrayFire){
+						i.gameObject.layer = LayerMask.NameToLayer("Particles");
+					}
 					break;
 				case Statue:
 					propsSprites[x,y].sprite = v_statue;
 					break;
 				case Pine:
-					propsSprites[x,y].sprite = v_pine;
-					break;
-				case Lava:
-					propsSprites[x,y].sprite = v_lava;
+					GameObject clonePine = Instantiate(v_pine, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.3f,0), Quaternion.identity) as GameObject;
 					break;
 				}
 			}
