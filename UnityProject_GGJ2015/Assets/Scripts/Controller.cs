@@ -42,7 +42,7 @@ public class Controller : MonoBehaviour
 			storedMoves[i] = -1;
 		}
 
-		orientation = isPlayer2 ? 0 : 2;
+		orientation = isPlayer2 ? 2 : 1;
 
 		range = AttackRange.SingleAttack;
 
@@ -325,6 +325,6 @@ public class Controller : MonoBehaviour
 			return;
 		}
 
-		if(board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
+		if(!board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
 	}
 }
