@@ -16,6 +16,7 @@ public class Controller : MonoBehaviour
 
 	public Transform self;
 	public Renderer selfRenderer;
+	public Animator selfAnim;
 
 	public BoardData board;
 	public TurnManager manager;
@@ -30,6 +31,7 @@ public class Controller : MonoBehaviour
 	[HideInInspector]
 	public int cooldown;
 
+
 	// Use this for initialization
 	void Start () {
 		LoadInput();
@@ -39,13 +41,13 @@ public class Controller : MonoBehaviour
 			storedMoves[i] = -1;
 		}
 
-		RefreshPosition();
-
 		orientation = isPlayer2 ? 0 : 2;
 
 		range = AttackRange.SingleAttack;
 
 		cooldown = 0;
+
+		RefreshPosition();
 	}
 	
 	// Update is called once per frame
@@ -228,7 +230,7 @@ public class Controller : MonoBehaviour
 	{
 		if(range == AttackRange.SingleAttack) SingleAttack();
 		if(range == AttackRange.SpinAttack) SpinAttack();
-		if(range == AttackRange.LongShot) LongShot();
+		//if(range == AttackRange.LongShot) LongShot();
 	}
 
 	public void Die()
@@ -263,6 +265,7 @@ public class Controller : MonoBehaviour
 		manager.AttackTile (position.x-1, position.y);
 	}
 
+	/*
 	public void LongShot()
 	{
 		int i = 0;
@@ -305,11 +308,12 @@ public class Controller : MonoBehaviour
 				}
 				break;
 		}
-	}
+	}*/
 
 	public void RefreshPosition()
 	{
 		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
 		selfRenderer.sortingOrder = (int) (position.y - position.x);
+		selfAnim.SetInteger("I_Orientation", orientation);
 	}
 }
