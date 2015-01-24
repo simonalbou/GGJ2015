@@ -81,7 +81,7 @@ public class BoardData : MonoBehaviour {
 		return levelBase;
 	}
 
-	bool isWalkable(int x, int y){
+	public bool isWalkable(int x, int y){
 		if(spriteCollision.Contains(propsSprites[x,y].sprite)){
 			return false;
 		}
@@ -91,9 +91,10 @@ public class BoardData : MonoBehaviour {
 
 	void Awake ()
 	{
-
-		string[][] jagged = readFile(Application.dataPath+"/level_"+ levelNumber +".txt");
-		string[][] jaggedProps = readFile(Application.dataPath+"/level_"+ levelNumber +"_props.txt");
+		//string file = Resources.Load ("level_" + levelNumber.ToString (), typeof(object));
+		//string[][] jagged2 = readFile();
+		string[][] jagged = readFile(Application.dataPath+"/Resources/level_"+ levelNumber +".txt");
+		string[][] jaggedProps = readFile(Application.dataPath+"/Resources/level_"+ levelNumber +"_props.txt");
 
 		spriteCollision = new List<Sprite> ();
 		spriteCollision.Add (v_lava);
