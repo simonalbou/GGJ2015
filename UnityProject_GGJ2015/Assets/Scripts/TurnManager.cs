@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour {
 		{
 			if(players[turnIndex].MoveLeft())
 			{
+				players[turnIndex].storedMoves[0] = 3;
 				ChangeTurn();
 				return;
 			}
@@ -25,6 +26,7 @@ public class TurnManager : MonoBehaviour {
 		{
 			if(players[turnIndex].MoveRight())
 			{
+				players[turnIndex].storedMoves[0] = 1;
 				ChangeTurn();
 				return;
 			}
@@ -33,6 +35,7 @@ public class TurnManager : MonoBehaviour {
 		{
 			if(players[turnIndex].MoveUp())
 			{
+				players[turnIndex].storedMoves[0] = 0;
 				ChangeTurn();
 				return;
 			}
@@ -41,6 +44,7 @@ public class TurnManager : MonoBehaviour {
 		{
 			if(players[turnIndex].MoveDown())
 			{
+				players[turnIndex].storedMoves[0] = 2;
 				ChangeTurn();
 				return;
 			}
