@@ -4,7 +4,7 @@ using System.Collections;
 public class TurnManager : MonoBehaviour {
 
 	int turnIndex;
-	Controller[] players;
+	public Controller[] players;
 
 	void Start ()
 	{
@@ -15,7 +15,7 @@ public class TurnManager : MonoBehaviour {
 	{
 		if(players[turnIndex].leftInput)
 		{
-			if(players[turnIndex].MoveLeft())
+			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 3;
 				ChangeTurn();
@@ -24,7 +24,7 @@ public class TurnManager : MonoBehaviour {
 		}
 		if(players[turnIndex].rightInput)
 		{
-			if(players[turnIndex].MoveRight())
+			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 1;
 				ChangeTurn();
@@ -33,7 +33,7 @@ public class TurnManager : MonoBehaviour {
 		}
 		if(players[turnIndex].upInput)
 		{
-			if(players[turnIndex].MoveUp())
+			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 0;
 				ChangeTurn();
@@ -42,7 +42,7 @@ public class TurnManager : MonoBehaviour {
 		}
 		if(players[turnIndex].downInput)
 		{
-			if(players[turnIndex].MoveDown())
+			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 2;
 				ChangeTurn();
@@ -53,6 +53,7 @@ public class TurnManager : MonoBehaviour {
 
 	public void ChangeTurn()
 	{
+		//Debug.Log ("hi");
 		turnIndex++;
 		if(turnIndex == players.Length) turnIndex = 0;
 	}

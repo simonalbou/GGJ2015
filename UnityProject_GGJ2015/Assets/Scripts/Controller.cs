@@ -26,11 +26,14 @@ public class Controller : MonoBehaviour
 		{
 			storedMoves[i] = -1;
 		}
+
+		RefreshPosition();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		UpdateInput();
+		//if(leftInput) Debug.Log (name);
 	}
 
 	void LoadInput()
@@ -53,10 +56,48 @@ public class Controller : MonoBehaviour
 
 	void UpdateInput()
 	{
+		/**
 		UpdateSingleInput(leftKeys, leftInput);
 		UpdateSingleInput(rightKeys, rightInput);
 		UpdateSingleInput(upKeys, upInput);
 		UpdateSingleInput(downKeys, downInput);
+		//*/
+
+		leftInput = false;
+		foreach(KeyCode key in leftKeys)
+		{
+			if(Input.GetKeyDown(key))
+			{
+				leftInput = true;
+			}
+		}
+
+		rightInput = false;
+		foreach(KeyCode key in rightKeys)
+		{
+			if(Input.GetKeyDown(key))
+			{
+				rightInput = true;
+			}
+		}
+
+		upInput = false;
+		foreach(KeyCode key in upKeys)
+		{
+			if(Input.GetKeyDown(key))
+			{
+				upInput = true;
+			}
+		}
+
+		downInput = false;
+		foreach(KeyCode key in downKeys)
+		{
+			if(Input.GetKeyDown(key))
+			{
+				downInput = true;
+			}
+		}
 	}
 
 	void UpdateSingleInput(KeyCode[] keys, bool input)
@@ -79,7 +120,7 @@ public class Controller : MonoBehaviour
 		downInput = false;
 	}
 
-	public void DoMove()
+	public bool DoMove()
 	{
 		switch(storedMoves[storedMoves.Length-1])
 		{
@@ -103,6 +144,8 @@ public class Controller : MonoBehaviour
 		{
 			storedMoves[i] = storedMoves[i-1];
 		}
+
+		return true;
 	}
 
 	public bool MoveLeft()
