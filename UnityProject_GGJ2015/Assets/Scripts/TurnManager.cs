@@ -84,7 +84,7 @@ public class TurnManager : MonoBehaviour {
 		return true;
 	}
 
-	public bool AttackTile(int x, int y)
+	public void AttackTile(int x, int y)
 	{
 		foreach(Controller ctrl in players)
 		{
