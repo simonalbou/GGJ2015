@@ -88,13 +88,22 @@ public class BoardData : MonoBehaviour {
 		return true;
 	}
 
+	public bool isDeadly(int x, int y){
+		if(propsSprites[x,y].sprite = v_lava){
+			return true;
+		}
+		return false;
+	}
+
 
 	void Awake ()
 	{
-		//string file = Resources.Load ("level_" + levelNumber.ToString (), typeof(object));
-		//string[][] jagged2 = readFile();
-		string[][] jagged = readFile(Application.dataPath+"/Resources/level_"+ levelNumber +".txt");
-		string[][] jaggedProps = readFile(Application.dataPath+"/Resources/level_"+ levelNumber +"_props.txt");
+
+//		object file = Resources.Load ("level" + levelNumber.ToString (), typeof(object));
+//		object fileProps = Resources.Load ("level" + levelNumber.ToString ()+"Props", typeof(object));
+		
+		string[][] jagged = readFile(Application.dataPath + "/level" + levelNumber.ToString ()+".txt");
+		string[][] jaggedProps = readFile(Application.dataPath + "/level" + levelNumber.ToString ()+"Props.txt");
 
 		spriteCollision = new List<Sprite> ();
 		spriteCollision.Add (v_lava);
