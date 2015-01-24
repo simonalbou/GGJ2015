@@ -489,16 +489,24 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21200000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: m_Color.g
-      value: .253676474
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 21200000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: m_Color.b
-      value: .253676474
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: manager
       value: 
       objectReference: {fileID: 286455033}
+    - target: {fileID: 9500000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6136e9eaeafdd944587bb8e2dd313890, type: 2}
+    - target: {fileID: 21200000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
   m_RootGameObject: {fileID: 2025855009}
@@ -538,8 +546,8 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1898203381
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 058bce838f296304f841312e1f090daa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &791393999
@@ -588,7 +596,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1898203381
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1e7dbf30cbf3f76489288ba76a682158, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -656,7 +664,7 @@ SpriteRenderer:
   m_SortingLayerID: 1898203381
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a8d40144e0442e748b1f9ee09f6bfed6, type: 3}
-  m_Color: {r: 1, g: .253676474, b: .253676474, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2025855012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,7 +704,7 @@ Animator:
   m_GameObject: {fileID: 2025855009}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: baeeecd2719f3da47ba769750c0307b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6136e9eaeafdd944587bb8e2dd313890, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1

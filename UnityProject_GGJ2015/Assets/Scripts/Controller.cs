@@ -316,7 +316,7 @@ public class Controller : MonoBehaviour
 	public void RefreshPosition()
 	{
 		self.position = board.self.position + board.offsetX * position.x + board.offsetY * position.y;
-		selfRenderer.sortingOrder = (int) (position.y - position.x)*2+1;
+		selfRenderer.sortingOrder = (int) (position.x - position.y)*2+1;
 		selfAnim.SetInteger("I_Orientation", orientation);
 
 		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)

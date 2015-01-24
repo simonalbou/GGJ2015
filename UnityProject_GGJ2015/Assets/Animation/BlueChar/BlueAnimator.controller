@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PlayerAnimator
+  m_Name: BlueAnimator
   serializedVersion: 2
   m_AnimatorParameters:
   - m_Name: I_Orientation
@@ -373,7 +373,7 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: a222774a6cc4ef645bffa6b7e7e0883d, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 120, y: 96, z: 0}
   m_IKOnFeet: 0
@@ -418,7 +418,7 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 4e4abd95efce42c4e98f40a7ff436683, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 252, y: 168, z: 0}
   m_IKOnFeet: 0
@@ -435,7 +435,7 @@ State:
   m_Motions:
   - {fileID: 0}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 144, y: -72, z: 0}
+  m_Position: {x: 132, y: -72, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -448,7 +448,7 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: db9977efb0749d34cadd0a07e5ed4086, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 120, y: 240, z: 0}
   m_IKOnFeet: 0
@@ -463,7 +463,7 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 4b565c4dc4c42124c828ba2d4fd77e1d, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: -12, y: 168, z: 0}
   m_IKOnFeet: 0
