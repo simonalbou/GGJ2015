@@ -14,12 +14,19 @@ public class TurnManager : MonoBehaviour {
 
 	private float gameOverTimestamp;
 
-	public Transform collectibleSpin;
+	public Transform[] collectibles;
 	[HideInInspector]
 	public bool collectibleSpinHere;
 
 	[HideInInspector]
 	public Vector2 spinCollCoords;
+
+	[HideInInspector]
+	public int currentAvailableBonus;
+	/**
+	 * 0 : spin
+	 * 1 : spear
+	 */ 
 
 	public float collectibleChanceEachTurn;
 
@@ -180,14 +187,15 @@ public class TurnManager : MonoBehaviour {
 
 	void SpawnCollectible()
 	{
+		currentAvailableBonus = Random.Range (0, collectibles.Length);
 		spinCollCoords = board.GetRandomAvailableTile();
-		collectibleSpin.position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
+		collectibles[currentAvailableBonus].position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
 		collectibleSpinHere = true;
 	}
 
 	public void DestroyCollectible()
 	{
-		collectibleSpin.position = Vector3.up * 3000;
+		collectibles[currentAvailableBonus].position = Vector3.up * 3000;
 		collectibleSpinHere = false;
 		selfAudio.PlayOneShot(SFX[0]);
 	}

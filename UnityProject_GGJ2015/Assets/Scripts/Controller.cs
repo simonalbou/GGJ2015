@@ -207,9 +207,18 @@ public class Controller : MonoBehaviour
 
 		if(manager.isOnCollectible(position))
 		{
-			range = AttackRange.SpinAttack;
-			spinStacks++;
 			manager.DestroyCollectible();
+			switch(manager.currentAvailableBonus)
+			{
+				case 0 :
+					range = AttackRange.SpinAttack;
+					spinStacks++;
+					break;
+				case 1 :
+					range = AttackRange.LongShot;
+					shootStacks++;
+					break;
+			}
 		}
 
 		manager.ChangeTurn();
@@ -356,6 +365,12 @@ public class Controller : MonoBehaviour
 	public void LongShot()
 	{
 		//daggerAnim.SetTrigger("TR_Shoots");
+		shootStacks--;
+		if(shootStacks == 0)
+		{
+			range = spinStacks == 0 ? AttackRange.SingleAttack : AttackRange.SpinAttack;
+		}
+
 		int i = 0;
 		switch(orientation)
 		{
