@@ -124,6 +124,8 @@ MonoBehaviour:
   range: 0
   cooldown: 0
   v_exploLava: {fileID: 100000, guid: 242176721a3f4754b8919552c3b93e23, type: 2}
+  stillMoving: 0
+  stillAttacking: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

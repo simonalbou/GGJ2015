@@ -230,8 +230,9 @@ public class BoardData : MonoBehaviour {
 					GameObject cloneLava = Instantiate(particlesLava, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.2f,0), Quaternion.identity) as GameObject;
 					ParticleSystem[] particlesArrayLava = cloneLava.GetComponentsInChildren<ParticleSystem>();
 					foreach (ParticleSystem i in particlesArrayLava){
-						i.gameObject.layer = LayerMask.NameToLayer("Particles");
+						i.gameObject.GetComponent<FixedParticles>().self.sortingOrder = (x-y)*4+1;
 					}
+					cloneLava.transform.parent = self.transform;
 					break;
 				case Rock:
 					propsSprites[x,y].sprite = v_rock;
@@ -241,14 +242,20 @@ public class BoardData : MonoBehaviour {
 					GameObject cloneFire = Instantiate(particlesFire, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.6f,0), Quaternion.identity) as GameObject;
 					ParticleSystem[] particlesArrayFire = cloneFire.GetComponentsInChildren<ParticleSystem>();
 					foreach (ParticleSystem i in particlesArrayFire){
-						i.gameObject.layer = LayerMask.NameToLayer("Particles");
+						i.gameObject.GetComponent<FixedParticles>().self.sortingOrder = (x-y)*4+1;
 					}
+					cloneFire.transform.parent = self.transform;
 					break;
 				case Statue:
 					propsSprites[x,y].sprite = v_statue;
 					break;
 				case Pine:
 					GameObject clonePine = Instantiate(v_pine, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.3f,0), Quaternion.identity) as GameObject;
+					SpriteRenderer[] spriteRenderePine = clonePine.GetComponentsInChildren<SpriteRenderer>();
+					foreach (SpriteRenderer i in spriteRenderePine){
+						i.gameObject.GetComponent<SpriteRenderer>().sortingOrder = (x-y)*4+1;
+					}
+					clonePine.transform.parent = self.transform;
 					break;
 				}
 				propsSprites[x,y].sortingOrder = (x-y)*4;
