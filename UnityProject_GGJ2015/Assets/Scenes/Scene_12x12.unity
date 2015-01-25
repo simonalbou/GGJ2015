@@ -516,7 +516,6 @@ MonoBehaviour:
   daggerAnim: {fileID: 204217927}
   board: {fileID: 202940824}
   manager: {fileID: 286455033}
-  memoryAmount: 1
   storedMoves: 
   range: 0
   cooldown: 0
@@ -9405,7 +9404,6 @@ MonoBehaviour:
   daggerAnim: {fileID: 2025855013}
   board: {fileID: 202940824}
   manager: {fileID: 286455033}
-  memoryAmount: 1
   storedMoves: 
   range: 0
   cooldown: 0
