@@ -66,7 +66,7 @@ public class Controller : MonoBehaviour
 
 		stillMoving = false;
 
-		manager.ChangeTurn();
+		//manager.ChangeTurn();
 	}
 	
 	// Update is called once per frame

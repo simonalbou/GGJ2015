@@ -60,12 +60,16 @@ public class TurnManager : MonoBehaviour {
 		}
 		if (async != null && async.progress >= 0.9f) {
 			async.allowSceneActivation = true;
-			board = GameObject.Find ("Board").GetComponent<BoardData>();
 			players[0] = GameObject.Find ("Player1").GetComponent<Controller>();
 			players[1] = GameObject.Find ("Player2").GetComponent<Controller>();
 			players[0].manager = this;
 			players[1].manager = this;
+			board = GameObject.Find ("Board").GetComponent<BoardData>();
+			ChangeTurn();
 		}
+		else return;
+
+		Debug.Log ("coucou");
 
 		if(gameOver && gameOverTimestamp < Time.time)
 		{
