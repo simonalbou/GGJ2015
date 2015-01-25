@@ -56,6 +56,8 @@ public class BoardData : MonoBehaviour {
 	public const string Statue = "6";
 	public const string Pine = "7";
 
+	[HideInInspector]
+	public List<Vector2> treeTiles;
 
 	[HideInInspector]
 	public List<Sprite> spriteCollision;
@@ -89,9 +91,19 @@ public class BoardData : MonoBehaviour {
 		if (x >= width) return true;
 		if (y >= height) return true;
 
-		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].gameObject == v_pine){
+		Vector2 coords = new Vector2(x,y);
+		if(treeTiles.Contains(coords))
+		{
+			//Debug.Log (x.ToString()+","+y.ToString()+" is a tree");
 			return false;
 		}
+
+		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].transform.parent.gameObject == v_pine){
+			//Debug.Log (x.ToString()+","+y.ToString()+" meh");
+			//Debug.Log (spriteCollision.Contains(propsSprites[x,y].sprite));
+			return false;
+		}
+
 		return true;
 	}
 
@@ -146,7 +158,7 @@ public class BoardData : MonoBehaviour {
 		string[][] jaggedProps = readFile(textAssetProps.text);
 
 		spriteCollision = new List<Sprite> ();
-		//spriteCollision.Add (v_lava);
+		//spriteCollision.Add (v_trunk);
 		spriteCollision.Add (v_column);
 		spriteCollision.Add (v_columnSmall);
 		spriteCollision.Add (v_rock);
@@ -163,6 +175,8 @@ public class BoardData : MonoBehaviour {
 		tilesSprites = new SpriteRenderer[width,height];
 		props = new GameObject[width,height];
 		propsSprites = new SpriteRenderer[width,height];
+
+		treeTiles = new List<Vector2>();
 
 
 		for(int j=0; j<height; j++)
@@ -270,6 +284,7 @@ public class BoardData : MonoBehaviour {
 						i.gameObject.GetComponent<SpriteRenderer>().sortingOrder = (x-y)*4+1;
 					}
 					clonePine.transform.parent = self.transform;
+					treeTiles.Add(new Vector2(x,y));
 					break;
 				}
 				propsSprites[x,y].sortingOrder = (x-y)*4;

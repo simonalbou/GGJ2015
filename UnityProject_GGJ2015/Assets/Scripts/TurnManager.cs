@@ -7,15 +7,16 @@ public class TurnManager : MonoBehaviour {
 	public BoardData board;
 	public Controller[] players;
 	public Camera cam;
-	AsyncOperation async;
+	//AsyncOperation async;
 
 	private bool gameOver;
 
-	public Transform glowTileUp, glowTileDown, glowTileRight, glowTileLeft;
+	public Transform glowTileUp, glowTileDown, glowTileRight, glowTileLeft, shadowTile;
 
 	private float gameOverTimestamp;
 
 	public Transform[] collectibles;
+	public SpriteRenderer[] collectibleSprites;
 	[HideInInspector]
 	public bool collectibleSpinHere;
 
@@ -39,7 +40,18 @@ public class TurnManager : MonoBehaviour {
 	 * 1 : le joueur a fait son move (et bouge)
 	 * 2 : chute dans la lave
 	 * 3 : chute dans le vide
+	 * 4 : mort par arme
+	 * 5 : spin attack
+	 * 6 : javelot
+	 * 7 : pop d'un power up
 	 */ 
+
+	public Transform powerUpParticles;
+	public ParticleSystem[] powerUpParticleSystems;
+
+	public GameObject redWins, blueWins;
+
+	private bool redHasWon;
 
 	void Start ()
 	{
@@ -47,15 +59,15 @@ public class TurnManager : MonoBehaviour {
 		gameOver = false;
 	}
 
-	IEnumerator Chargement(string levelName) {
+	/*IEnumerator Chargement(string levelName) {
 		async = Application.LoadLevelAdditiveAsync(levelName);
 		async.allowSceneActivation = false;
 		yield return async;
-	}
+	}*/
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.Return)) {
+		/*if (Input.GetKeyDown (KeyCode.Return)) {
 			StartCoroutine("Chargement", "Scene_6x6");
 		}
 		if (async != null && async.progress >= 0.9f) {
@@ -65,12 +77,14 @@ public class TurnManager : MonoBehaviour {
 			players[1] = GameObject.Find ("Player2").GetComponent<Controller>();
 			players[0].manager = this;
 			players[1].manager = this;
-		}
+		}*/
 
 		if(gameOver && gameOverTimestamp < Time.time)
 		{
+			if(redHasWon) redWins.SetActive(true);
+			else blueWins.SetActive(true);
 			cam.backgroundColor = Color.black;
-			if(Input.anyKeyDown) Application.LoadLevel(Application.loadedLevel);
+			if(Input.anyKeyDown) Application.LoadLevel("MainScene");
 		}
 
 		if(gameOver) return;
@@ -206,15 +220,25 @@ public class TurnManager : MonoBehaviour {
 
 	void SpawnCollectible()
 	{
+		selfAudio.PlayOneShot(SFX[7]);
 		currentAvailableBonus = Random.Range (0, collectibles.Length);
 		spinCollCoords = board.GetRandomAvailableTile();
 		collectibles[currentAvailableBonus].position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
+		collectibleSprites[currentAvailableBonus].sortingOrder = (int)(spinCollCoords.x - spinCollCoords.y) * 4 + 1;
 		collectibleSpinHere = true;
+		shadowTile.position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
 	}
 
 	public void DestroyCollectible()
 	{
+		powerUpParticles.position = collectibles[currentAvailableBonus].position + Vector3.up *0.5f;
+		foreach(ParticleSystem ps in powerUpParticleSystems)
+		{
+			ps.Play ();
+			ps.GetComponent<FixedParticles>().self.sortingOrder = (int)(spinCollCoords.x - spinCollCoords.y)*4+3;
+		}
 		collectibles[currentAvailableBonus].position = Vector3.up * 3000;
+		shadowTile.position = Vector3.up * 3000;
 		collectibleSpinHere = false;
 		selfAudio.PlayOneShot(SFX[0]);
 	}
@@ -258,5 +282,6 @@ public class TurnManager : MonoBehaviour {
 		gameOver = true;
 		gameOverTimestamp = Time.time + 3;
 		cam.backgroundColor = Color.black;
+		redHasWon = !pOneWins;
 	}
 }

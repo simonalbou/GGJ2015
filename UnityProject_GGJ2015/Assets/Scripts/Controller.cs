@@ -45,6 +45,8 @@ public class Controller : MonoBehaviour
 
 	private int spinStacks, shootStacks;
 
+	public Spear spear;
+
 	// Use this for initialization
 	void Start () {
 		LoadInput();
@@ -197,7 +199,11 @@ public class Controller : MonoBehaviour
 	{
 		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
 		{
-			if(position.x < 0 || position.y >= board.height) selfRenderer.sortingOrder = -100;
+			if(position.x < 0 || position.y >= board.height)
+			{
+				selfRenderer.sortingLayerName = "Grid";
+				selfRenderer.sortingOrder = -100;
+			}
 			if(position.x >= board.width || position.y < 0) selfRenderer.sortingOrder = 100;
 			Die (DeathType.FellOff);
 			return;
@@ -232,7 +238,6 @@ public class Controller : MonoBehaviour
 		{
 			case -1 :
 				return false;
-				break;
 			case 0 :
 				MoveUp();
 				break;
@@ -324,7 +329,11 @@ public class Controller : MonoBehaviour
 			selfAnim.SetTrigger ("TR_Lava");
 			manager.selfAudio.PlayOneShot(manager.SFX[2]);
 		}
-		if(death == DeathType.Stabbed) selfAnim.SetTrigger ("TR_Stabbed");
+		if(death == DeathType.Stabbed)
+		{
+			selfAnim.SetTrigger ("TR_Stabbed");
+			DeathSound();
+		}
 		manager.EndGame (isPlayer2);
 	}
 
@@ -365,6 +374,8 @@ public class Controller : MonoBehaviour
 	public void LongShot()
 	{
 		//daggerAnim.SetTrigger("TR_Shoots");
+		manager.selfAudio.PlayOneShot(manager.SFX[6]);
+
 		shootStacks--;
 		if(shootStacks == 0)
 		{
@@ -376,6 +387,7 @@ public class Controller : MonoBehaviour
 		{
 			case 0 :
 				manager.AttackTile (position.x, position.y+1);
+				spear.GoUp (self.position);
 				while(i<board.height)
 				{
 					i++;
@@ -385,6 +397,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 1 :
 				manager.AttackTile (position.x+1, position.y);
+				spear.GoRight(self.position);
 				while(i<board.width)
 				{
 					i++;
@@ -394,6 +407,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 2:
 				manager.AttackTile (position.x, position.y-1);
+				spear.GoDown (self.position);
 				while(i<board.height)
 				{
 					i++;
@@ -403,6 +417,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 3 :
 				manager.AttackTile (position.x-1, position.y);
+				spear.GoLeft (self.position);
 				while(i<board.width)
 				{
 					i++;
@@ -433,5 +448,17 @@ public class Controller : MonoBehaviour
 		{
 			ps.Play();
 		}
+	}
+
+	// animation event
+	public void DeathSound()
+	{
+		manager.selfAudio.PlayOneShot(manager.SFX[4]);
+	}
+
+	// animation event
+	public void SpinSound()
+	{
+		manager.selfAudio.PlayOneShot(manager.SFX[5]);
 	}
 }
