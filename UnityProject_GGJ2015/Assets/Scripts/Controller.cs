@@ -26,7 +26,9 @@ public class Controller : MonoBehaviour
 	public BoardData board;
 	public TurnManager manager;
 
-	public static int memoryAmount;
+	public static int staticMem;
+	public int memoryAmount;
+
 	[HideInInspector]
 	public int[] storedMoves; // 0 means up, 1 means right, 2 means down, 3 means left
 
@@ -48,6 +50,12 @@ public class Controller : MonoBehaviour
 	public Spear spear;
 
 	// Use this for initialization
+	
+	void Awake(){
+	
+		memoryAmount = Controller.staticMem;
+	}
+
 	void Start () {
 		LoadInput();
 		storedMoves = new int[memoryAmount];

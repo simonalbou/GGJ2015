@@ -156,14 +156,15 @@ public class GUIManager : MonoBehaviour {
 				audio.PlayOneShot(selectClip);
 				// START GAME
 				if(selectedTurn == oneTurn){
-					Controller.memoryAmount = 1;
+					Controller.staticMem = 1;
 				}
 				if(selectedTurn == twoTurns){
-					Controller.memoryAmount = 2;
+					Controller.staticMem = 2;
 				}
 				if(selectedTurn == threeTurns){
-					Controller.memoryAmount = 3;
+					Controller.staticMem = 3;
 				}
+				Debug.Log(Controller.staticMem);
 				if(selectedLevel == level6){
 					Application.LoadLevelAsync("Scene_6x6");
 				}
