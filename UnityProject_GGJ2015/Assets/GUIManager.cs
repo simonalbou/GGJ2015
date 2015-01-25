@@ -164,7 +164,7 @@ public class GUIManager : MonoBehaviour {
 				if(selectedTurn == threeTurns){
 					Controller.staticMem = 3;
 				}
-				Debug.Log(Controller.staticMem);
+				//Debug.Log(Controller.staticMem);
 				if(selectedLevel == level6){
 					Application.LoadLevelAsync("Scene_6x6");
 				}

@@ -50,13 +50,9 @@ public class Controller : MonoBehaviour
 	public Spear spear;
 
 	// Use this for initialization
-	
-	void Awake(){
-	
-		memoryAmount = Controller.staticMem;
-	}
-
 	void Start () {
+		//memoryAmount = Controller.staticMem;
+		//Debug.Log (memoryAmount);
 		LoadInput();
 		storedMoves = new int[memoryAmount];
 		for(int i=0; i<storedMoves.Length; i++)
