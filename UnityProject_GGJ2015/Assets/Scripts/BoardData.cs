@@ -21,7 +21,7 @@ public class BoardData : MonoBehaviour {
 
 	public Transform self;
 
-	public static int levelNumber;
+	public int levelNumber;
 
 	[HideInInspector]
 	public int width, height;
@@ -121,6 +121,8 @@ public class BoardData : MonoBehaviour {
 
 	void Awake ()
 	{
+
+
 
 //		object file = Resources.Load ("level" + levelNumber.ToString (), typeof(object));
 //		object fileProps = Resources.Load ("level" + levelNumber.ToString ()+"Props", typeof(object));
