@@ -74,7 +74,7 @@ public class Controller : MonoBehaviour
 		if(dead) return;
 		if(stillMoving && !stillAttacking)
 		{
-			Debug.Log (name);
+			//Debug.Log (name);
 			self.Translate(Vector3.Normalize(targetPos-self.position) * speed * Time.deltaTime);
 			if(Vector3.Distance(targetPos, self.position) < 0.1f)
 			{
