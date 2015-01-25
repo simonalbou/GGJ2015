@@ -164,14 +164,14 @@ public class TurnManager : MonoBehaviour {
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 4;
-				players[turnIndex].cooldown = players[turnIndex].memoryAmount;
+				players[turnIndex].cooldown = Controller.memoryAmount;
 				//ChangeTurn();
 				return;
 			}
 			else
 			{
 				players[turnIndex].storedMoves[0] = 4;
-				players[turnIndex].cooldown = players[turnIndex].memoryAmount;
+				players[turnIndex].cooldown = Controller.memoryAmount;
 				ChangeTurn ();
 				return;
 			}

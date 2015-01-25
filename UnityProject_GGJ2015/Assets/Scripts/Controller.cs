@@ -26,7 +26,7 @@ public class Controller : MonoBehaviour
 	public BoardData board;
 	public TurnManager manager;
 
-	public int memoryAmount;
+	public static int memoryAmount;
 	[HideInInspector]
 	public int[] storedMoves; // 0 means up, 1 means right, 2 means down, 3 means left
 
