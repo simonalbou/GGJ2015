@@ -118,6 +118,20 @@ public class BoardData : MonoBehaviour {
 		return true;
 	}
 
+	public Vector2 GetRandomAvailableTile()
+	{
+		Vector2 result = Vector2.one * -1;
+		int x, y;
+		while(!isExisting ((int)result.x, (int)result.y) || isDeadly ((int)result.x, (int)result.y) || !isWalkable((int)result.x, (int)result.y))
+		{
+			x = Random.Range(0, width);
+			y = Random.Range(0, height);
+			result.x = x;
+			result.y = y;
+		}
+		return result;
+	}
+
 
 	void Awake ()
 	{
@@ -132,7 +146,7 @@ public class BoardData : MonoBehaviour {
 		string[][] jaggedProps = readFile(textAssetProps.text);
 
 		spriteCollision = new List<Sprite> ();
-		spriteCollision.Add (v_lava);
+		//spriteCollision.Add (v_lava);
 		spriteCollision.Add (v_column);
 		spriteCollision.Add (v_columnSmall);
 		spriteCollision.Add (v_rock);

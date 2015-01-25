@@ -217,6 +217,8 @@ public class Controller : MonoBehaviour
 
 	public bool DoMove()
 	{
+		manager.selfAudio.PlayOneShot(manager.SFX[1]);
+
 		switch(storedMoves[storedMoves.Length-1])
 		{
 			case -1 :
@@ -305,9 +307,14 @@ public class Controller : MonoBehaviour
 		if(death == DeathType.FellOff)
 		{
 			fell = true;
+			manager.selfAudio.PlayOneShot(manager.SFX[3]);
 			selfAnim.SetTrigger ("TR_FellOff");
 		}
-		if(death == DeathType.Lava) selfAnim.SetTrigger ("TR_Lava");
+		if(death == DeathType.Lava)
+		{
+			selfAnim.SetTrigger ("TR_Lava");
+			manager.selfAudio.PlayOneShot(manager.SFX[2]);
+		}
 		if(death == DeathType.Stabbed) selfAnim.SetTrigger ("TR_Stabbed");
 		manager.EndGame (isPlayer2);
 	}

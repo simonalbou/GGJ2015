@@ -123,6 +123,13 @@ AnimationClip:
     script: {fileID: 0}
   m_EulerEditorCurves: []
   m_Events:
+  - time: .166666672
+    functionName: Sound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: .833333313
     functionName: DoneStabbing
     data: 

@@ -23,6 +23,16 @@ public class TurnManager : MonoBehaviour {
 
 	public float collectibleChanceEachTurn;
 
+	public AudioSource selfAudio;
+
+	public AudioClip[] SFX;
+	/**
+	 * 0 : collectible ramassé
+	 * 1 : le joueur a fait son move (et bouge)
+	 * 2 : chute dans la lave
+	 * 3 : chute dans le vide
+	 */ 
+
 	void Start ()
 	{
 		turnIndex = 0;
@@ -31,7 +41,7 @@ public class TurnManager : MonoBehaviour {
 	
 	void Update ()
 	{
-		if(gameOver && gameOverTimestamp > Time.time+3)
+		if(gameOver && gameOverTimestamp < Time.time)
 		{
 			cam.backgroundColor = Color.black;
 			if(Input.anyKeyDown) Application.LoadLevel(Application.loadedLevel);
@@ -179,6 +189,7 @@ public class TurnManager : MonoBehaviour {
 	{
 		collectibleSpin.position = Vector3.up * 3000;
 		collectibleSpinHere = false;
+		selfAudio.PlayOneShot(SFX[0]);
 	}
 
 	public bool isOnCollectible(Vector2 pos)
@@ -218,7 +229,7 @@ public class TurnManager : MonoBehaviour {
 	public void EndGame(bool pOneWins)
 	{
 		gameOver = true;
-		gameOverTimestamp = Time.time;
+		gameOverTimestamp = Time.time + 3;
 		cam.backgroundColor = Color.black;
 	}
 }
