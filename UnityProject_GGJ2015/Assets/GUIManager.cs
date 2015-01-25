@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour {
 
@@ -31,7 +32,6 @@ public class GUIManager : MonoBehaviour {
 	public GameObject backFight;
 	public GameObject randomLevel;
 
-	private GameObject[] menuListX;
 	private GameObject[][] menuList;
 
 	private int indexX;
@@ -60,6 +60,7 @@ public class GUIManager : MonoBehaviour {
 
 		isMenuActive = true;
 		isTutoActive = false;
+		isFightActive = false;
 		arrayMenu = new GameObject[4];
 		arrayMenu [0] = fight;
 		arrayMenu [1] = tuto;
@@ -72,6 +73,9 @@ public class GUIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		selectedFight = menuList [indexX] [indexY];
+
 		if (Input.GetKeyDown (KeyCode.S) || Input.GetKeyDown (KeyCode.DownArrow) && isMenuActive == true) {
 			index ++;
 			audio.PlayOneShot(moveClip);
@@ -81,10 +85,10 @@ public class GUIManager : MonoBehaviour {
 			audio.PlayOneShot(moveClip);
 		}
 		if (Input.GetKeyDown (KeyCode.E) || Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift) || Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.LeftControl)) {
-			if(selected == quit){
+			if(selected == quit && isMenuActive == true){
 				Application.Quit();
 			}
-			if(selected == tuto){
+			if(selected == tuto  && isMenuActive == true){
 				audio.PlayOneShot(selectClip);
 				canvasMenu.SetActive(false);
 				canvasTuto.SetActive(true);
@@ -94,14 +98,17 @@ public class GUIManager : MonoBehaviour {
 				arrowRight.transform.parent = canvasTuto.transform;
 				index = 3;
 			}
-			if(selected == fight){
+			if(selected == fight && isMenuActive == true){
+				indexX = 0;
 				audio.PlayOneShot(selectClip);
 				canvasMenu.SetActive(false);
 				canvasFight.SetActive(true);
 				isFightActive = true;
 				isMenuActive = false;
+				arrowLeft.transform.parent = canvasFight.transform;
+				arrowRight.transform.parent = canvasFight.transform;
 			}
-			if(selected == back){
+			if(selected == back && isTutoActive == true){
 				audio.PlayOneShot(backClip);
 				if(isTutoActive){
 					canvasMenu.SetActive(true);
@@ -109,9 +116,70 @@ public class GUIManager : MonoBehaviour {
 					isMenuActive = true;
 					isTutoActive = false;
 					index = 0;
+					indexX = 0;
+					indexY = 0;
 					arrowLeft.transform.parent = canvasMenu.transform;
 					arrowRight.transform.parent = canvasMenu.transform;
 				}
+			}
+			if(selectedFight == backFight && isFightActive == true){
+				audio.PlayOneShot(backClip);
+				if(isFightActive){
+					canvasMenu.SetActive(true);
+					canvasFight.SetActive(false);
+					isMenuActive = true;
+					isFightActive = false;
+					index = 0;
+					indexX = 0;
+					indexY = 0;
+					arrowLeft.transform.parent = canvasMenu.transform;
+					arrowRight.transform.parent = canvasMenu.transform;
+				}
+			}
+			if(selectedFight == randomLevel & isFightActive == true){
+				audio.PlayOneShot(selectClip);
+				// DO RANDOM SHIT
+
+				string[] sceneNames = new string[3];
+				sceneNames[0] = "Scene_6x6";
+				sceneNames[1] = "Scene_9x9";
+				sceneNames[2] = "Scene_12x12";
+
+				Application.LoadLevelAsync(sceneNames[Random.Range(0,3)]);
+
+
+
+
+			}
+
+			if(selectedFight == startGame & isFightActive == true){
+				audio.PlayOneShot(selectClip);
+				// START GAME
+				if(selectedTurn == oneTurn){
+					Controller.memoryAmount = 1;
+				}
+				if(selectedTurn == twoTurns){
+					Controller.memoryAmount = 2;
+				}
+				if(selectedTurn == threeTurns){
+					Controller.memoryAmount = 3;
+				}
+				if(selectedLevel == level6){
+					Application.LoadLevelAsync("Scene_6x6");
+				}
+				if(selectedLevel == level9){
+					Application.LoadLevelAsync("Scene_9x9");
+				}
+				if(selectedLevel == level12){
+					Application.LoadLevelAsync("Scene_12x12");
+				}
+
+
+
+
+
+
+
 			}
 		}
 		if (index > 2 && isMenuActive == true) {
@@ -156,6 +224,7 @@ public class GUIManager : MonoBehaviour {
 				indexX ++;
 				audio.PlayOneShot(moveClip);
 			}
+
 		}
 		if (indexX > 2 && isFightActive == true) {
 			indexX = 0;
@@ -169,24 +238,81 @@ public class GUIManager : MonoBehaviour {
 		if (indexY < 0 && isFightActive == true) {
 			indexY = 2;
 		}
-		if (indexY == 0) {
-			selectedFight = selectedTurn;
-			Debug.Log("turn");
+		if (indexY == 0 && isFightActive == true) {
+			selectedTurn = selectedFight;
+			arrowLeft.transform.parent = selectedTurn.transform;
+			arrowRight.transform.parent = selectedTurn.transform;
+			arrowLeft.transform.localPosition = new Vector3 (-120, 5, 0);
+			arrowRight.transform.localPosition = new Vector3 (120, 5, 0);
+		} 
+		if (indexY == 1 && isFightActive == true) {
+			selectedLevel = selectedFight;
+			arrowLeft.transform.parent = selectedLevel.transform;
+			arrowRight.transform.parent = selectedLevel.transform;
+			arrowLeft.transform.localPosition = new Vector3 (-380, -110, 0);
+			arrowRight.transform.localPosition = new Vector3 (380, -110, 0);
 		}
-		if (indexY == 1) {
-			selectedFight = selectedLevel;
-			Debug.Log("level");
-		}
-		if (indexY == 2) {
-			selectedFight = selectedMenu;
-			Debug.Log("m");
+		if (indexY == 2 && isFightActive == true) {
+			selectedMenu = selectedFight;
+			arrowLeft.transform.parent = selectedMenu.transform;
+			arrowRight.transform.parent = selectedMenu.transform;
+			arrowLeft.transform.localPosition = new Vector3(-120/selectedMenu.transform.localScale.x,0,0);
+			arrowRight.transform.localPosition =  new Vector3(120/selectedMenu.transform.localScale.x,0,0);
+
 		}
 
-		selectedFight = menuList [indexX] [indexY];
-		Debug.Log (selectedTurn);
-		Debug.Log (selectedLevel);
-		Debug.Log (selectedMenu);
-		//selectedFight.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+		if (isFightActive && indexY == 0) {
 
+			menuList[0][0].GetComponent<Text> ().color = new Color (0, 0, 0, 0.2f);
+            menuList[1][0].GetComponent<Text> ().color = new Color (0, 0, 0, 0.2f);
+            menuList[2][0].GetComponent<Text> ().color = new Color (0, 0, 0, 0.2f);
+			
+			selectedTurn.GetComponent<Text> ().color = new Color (0, 0, 0, 1);
+		}
+
+		if (isFightActive && indexY == 1) {
+
+			menuList[0][1].GetComponent<Image>().color = new Color (menuList[0][1].GetComponent<Image>().color.r,
+			                                                        menuList[0][1].GetComponent<Image>().color.g,
+			                                                        menuList[0][1].GetComponent<Image>().color.b, 
+			                                                        0.2f);
+			menuList[0][1].GetComponentInChildren<Text>().color = new Color (0, 0, 0, 0.2f);
+
+			//=======================================================================
+
+			menuList[1][1].GetComponent<Image>().color = new Color (menuList[1][1].GetComponent<Image>().color.r,
+			                                                        menuList[1][1].GetComponent<Image>().color.g,
+			                                                        menuList[1][1].GetComponent<Image>().color.b, 
+			                                                        0.2f);
+
+			menuList[1][1].GetComponentInChildren<Text>().color = new Color (0, 0, 0, 0.2f);
+
+
+			//=======================================================================
+
+			menuList[2][1].GetComponent<Image>().color = new Color (menuList[2][1].GetComponent<Image>().color.r,
+			                                                        menuList[2][1].GetComponent<Image>().color.g,
+			                                                        menuList[2][1].GetComponent<Image>().color.b, 
+			                                                        0.2f);
+
+			menuList[2][1].GetComponentInChildren<Text>().color = new Color (0, 0, 0, 0.4f);
+		
+			//=======================================================================
+
+			if(selectedLevel != null){
+				selectedLevel.GetComponent<Image>().color = new Color (selectedLevel.GetComponent<Image>().color.r,
+				                                                       selectedLevel.GetComponent<Image>().color.g,
+				                                                       selectedLevel.GetComponent<Image>().color.b, 
+				                                                       1f);
+
+				selectedLevel.GetComponentInChildren<Text>().color = new Color (0, 0, 0, 1f);
+			}
+
+		
+
+//			foreach(SpriteRenderer i in arraySprite3){
+//				i.color = new Color (0, 0, 0, 1f);
+//			}
+		}
 	}
 }
