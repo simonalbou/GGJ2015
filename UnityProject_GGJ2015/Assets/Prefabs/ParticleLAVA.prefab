@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   m_Layer: 0
-  m_Name: ParticleLAVA
+  m_Name: ParticleLava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,6 +25,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
+  - 114: {fileID: 11416832}
   m_Layer: 0
   m_Name: ParticleLaval4
   m_TagString: Untagged
@@ -42,6 +43,7 @@ GameObject:
   - 4: {fileID: 400004}
   - 198: {fileID: 19800002}
   - 199: {fileID: 19900002}
+  - 114: {fileID: 11450762}
   m_Layer: 0
   m_Name: ParticleLava3
   m_TagString: Untagged
@@ -59,6 +61,7 @@ GameObject:
   - 4: {fileID: 400006}
   - 198: {fileID: 19800004}
   - 199: {fileID: 19900004}
+  - 114: {fileID: 11479910}
   m_Layer: 0
   m_Name: ParticleLava2
   m_TagString: Untagged
@@ -117,6 +120,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400000}
   m_RootOrder: 0
+--- !u!114 &11416832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8da69c64bec5145b78278055af3e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 19900000}
+  sortingLayerName: SpecialTiles
+--- !u!114 &11450762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8da69c64bec5145b78278055af3e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 19900002}
+  sortingLayerName: SpecialTiles
+--- !u!114 &11479910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8da69c64bec5145b78278055af3e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 19900004}
+  sortingLayerName: SpecialTiles
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
