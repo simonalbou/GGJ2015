@@ -7,7 +7,7 @@ public class TurnManager : MonoBehaviour {
 	public BoardData board;
 	public Controller[] players;
 	public Camera cam;
-	AsyncOperation async;
+	//AsyncOperation async;
 
 	private bool gameOver;
 
@@ -49,21 +49,25 @@ public class TurnManager : MonoBehaviour {
 	public Transform powerUpParticles;
 	public ParticleSystem[] powerUpParticleSystems;
 
+	public GameObject redWins, blueWins;
+
+	private bool redHasWon;
+
 	void Start ()
 	{
 		turnIndex = 0;
 		gameOver = false;
 	}
 
-	IEnumerator Chargement(string levelName) {
+	/*IEnumerator Chargement(string levelName) {
 		async = Application.LoadLevelAdditiveAsync(levelName);
 		async.allowSceneActivation = false;
 		yield return async;
-	}
+	}*/
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.Return)) {
+		/*if (Input.GetKeyDown (KeyCode.Return)) {
 			StartCoroutine("Chargement", "Scene_6x6");
 		}
 		if (async != null && async.progress >= 0.9f) {
@@ -73,12 +77,14 @@ public class TurnManager : MonoBehaviour {
 			players[1] = GameObject.Find ("Player2").GetComponent<Controller>();
 			players[0].manager = this;
 			players[1].manager = this;
-		}
+		}*/
 
 		if(gameOver && gameOverTimestamp < Time.time)
 		{
+			if(redHasWon) redWins.SetActive(true);
+			else blueWins.SetActive(true);
 			cam.backgroundColor = Color.black;
-			if(Input.anyKeyDown) Application.LoadLevel(Application.loadedLevel);
+			if(Input.anyKeyDown) Application.LoadLevel("MainScene");
 		}
 
 		if(gameOver) return;
@@ -276,5 +282,6 @@ public class TurnManager : MonoBehaviour {
 		gameOver = true;
 		gameOverTimestamp = Time.time + 3;
 		cam.backgroundColor = Color.black;
+		redHasWon = !pOneWins;
 	}
 }

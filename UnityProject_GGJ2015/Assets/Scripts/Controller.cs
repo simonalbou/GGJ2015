@@ -45,6 +45,8 @@ public class Controller : MonoBehaviour
 
 	private int spinStacks, shootStacks;
 
+	public Spear spear;
+
 	// Use this for initialization
 	void Start () {
 		LoadInput();
@@ -197,7 +199,11 @@ public class Controller : MonoBehaviour
 	{
 		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
 		{
-			if(position.x < 0 || position.y >= board.height) selfRenderer.sortingOrder = -100;
+			if(position.x < 0 || position.y >= board.height)
+			{
+				selfRenderer.sortingLayerName = "Grid";
+				selfRenderer.sortingOrder = -100;
+			}
 			if(position.x >= board.width || position.y < 0) selfRenderer.sortingOrder = 100;
 			Die (DeathType.FellOff);
 			return;
@@ -381,6 +387,7 @@ public class Controller : MonoBehaviour
 		{
 			case 0 :
 				manager.AttackTile (position.x, position.y+1);
+				spear.GoUp ();
 				while(i<board.height)
 				{
 					i++;
@@ -390,6 +397,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 1 :
 				manager.AttackTile (position.x+1, position.y);
+				spear.GoRight();
 				while(i<board.width)
 				{
 					i++;
@@ -399,6 +407,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 2:
 				manager.AttackTile (position.x, position.y-1);
+				spear.GoDown ();
 				while(i<board.height)
 				{
 					i++;
@@ -408,6 +417,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 3 :
 				manager.AttackTile (position.x-1, position.y);
+				spear.GoLeft ();
 				while(i<board.width)
 				{
 					i++;
