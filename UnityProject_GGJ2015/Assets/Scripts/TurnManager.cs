@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour {
 
 	public Transform glowTileUp, glowTileDown, glowTileRight, glowTileLeft;
 
+	private float gameOverTimestamp;
+
 	void Start ()
 	{
 		turnIndex = 0;
@@ -20,12 +22,13 @@ public class TurnManager : MonoBehaviour {
 	
 	void Update ()
 	{
-		if(gameOver)
+		if(gameOver && gameOverTimestamp > Time.time+3)
 		{
 			cam.backgroundColor = Color.black;
 			if(Input.anyKeyDown) Application.LoadLevel(Application.loadedLevel);
-			return;
 		}
+
+		if(gameOver) return;
 
 		if(players[turnIndex].stillMoving || players[turnIndex].stillAttacking) return;
 

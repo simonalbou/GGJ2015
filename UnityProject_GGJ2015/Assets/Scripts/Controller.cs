@@ -38,7 +38,7 @@ public class Controller : MonoBehaviour
 
 	public GameObject v_exploLava;
 
-	private bool dead;
+	private bool dead, fell;
 
 	[HideInInspector]
 	public bool stillMoving, stillAttacking;
@@ -68,7 +68,9 @@ public class Controller : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+		if(fell) self.Translate(speed * 0.75f * Time.deltaTime * Vector3.down);
 		if(dead) return;
 		if(stillMoving && !stillAttacking)
 		{
@@ -291,7 +293,11 @@ public class Controller : MonoBehaviour
 	public void Die(DeathType death)
 	{
 		dead = true;
-		if(death == DeathType.FellOff) selfAnim.SetTrigger ("TR_FellOff");
+		if(death == DeathType.FellOff)
+		{
+			fell = true;
+			selfAnim.SetTrigger ("TR_FellOff");
+		}
 		if(death == DeathType.Lava) selfAnim.SetTrigger ("TR_Lava");
 		if(death == DeathType.Stabbed) selfAnim.SetTrigger ("TR_Stabbed");
 		manager.EndGame (isPlayer2);
@@ -386,6 +392,10 @@ public class Controller : MonoBehaviour
 	// animation event
 	public void MagmaDeath()
 	{
-		Instantiate (v_exploLava, self.position, Quaternion.identity);
+		GameObject vfx = Instantiate (v_exploLava, self.position+Vector3.up*0.5f, Quaternion.identity) as GameObject;
+		foreach(ParticleSystem ps in vfx.GetComponentsInChildren<ParticleSystem>())
+		{
+			ps.Play();
+		}
 	}
 }
