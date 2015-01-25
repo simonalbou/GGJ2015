@@ -14,6 +14,15 @@ public class TurnManager : MonoBehaviour {
 
 	private float gameOverTimestamp;
 
+	public Transform collectibleSpin;
+	[HideInInspector]
+	public bool collectibleSpinHere;
+
+	[HideInInspector]
+	public Vector2 spinCollCoords;
+
+	public float collectibleChanceEachTurn;
+
 	void Start ()
 	{
 		turnIndex = 0;
@@ -155,6 +164,27 @@ public class TurnManager : MonoBehaviour {
 			glowTileUp.position = board.tiles[x,y+1].transform.position;
 		if(board.isWalkable(x, y-1) && !board.isDeadly (x, y-1) && board.isExisting(x, y-1))
 			glowTileDown.position = board.tiles[x,y-1].transform.position;
+
+		if(Random.value < collectibleChanceEachTurn && !collectibleSpinHere) SpawnCollectible();
+	}
+
+	void SpawnCollectible()
+	{
+		spinCollCoords = board.GetRandomAvailableTile();
+		collectibleSpin.position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
+		collectibleSpinHere = true;
+	}
+
+	public void DestroyCollectible()
+	{
+		collectibleSpin.position = Vector3.up * 3000;
+		collectibleSpinHere = false;
+	}
+
+	public bool isOnCollectible(Vector2 pos)
+	{
+		if(!collectibleSpinHere) return false;
+		return pos == spinCollCoords;
 	}
 
 	public bool CheckRoom(float x, float y)
@@ -167,6 +197,8 @@ public class TurnManager : MonoBehaviour {
 		{
 			if(ctrl.position.x == x && ctrl.position.y == y) return false;
 		}
+
+		if(!board.isWalkable((int)x,(int)y)) return false;
 
 		return true;
 	}
@@ -186,6 +218,7 @@ public class TurnManager : MonoBehaviour {
 	public void EndGame(bool pOneWins)
 	{
 		gameOver = true;
+		gameOverTimestamp = Time.time;
 		cam.backgroundColor = Color.black;
 	}
 }
