@@ -53,6 +53,8 @@ public class TurnManager : MonoBehaviour {
 
 	private bool redHasWon;
 
+	private float quickExitTimer;
+
 	void Start ()
 	{
 		turnIndex = 0;
@@ -67,6 +69,11 @@ public class TurnManager : MonoBehaviour {
 
 	void Update ()
 	{
+		if(Input.GetKey(KeyCode.Escape)) quickExitTimer += Time.deltaTime;
+		else quickExitTimer = 0;
+
+		if(quickExitTimer > 2) Application.LoadLevel("MainScene");
+
 		/*if (Input.GetKeyDown (KeyCode.Return)) {
 			StartCoroutine("Chargement", "Scene_6x6");
 		}
