@@ -387,7 +387,7 @@ public class Controller : MonoBehaviour
 		{
 			case 0 :
 				manager.AttackTile (position.x, position.y+1);
-				spear.GoUp ();
+				spear.GoUp (self.position);
 				while(i<board.height)
 				{
 					i++;
@@ -397,7 +397,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 1 :
 				manager.AttackTile (position.x+1, position.y);
-				spear.GoRight();
+				spear.GoRight(self.position);
 				while(i<board.width)
 				{
 					i++;
@@ -407,7 +407,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 2:
 				manager.AttackTile (position.x, position.y-1);
-				spear.GoDown ();
+				spear.GoDown (self.position);
 				while(i<board.height)
 				{
 					i++;
@@ -417,7 +417,7 @@ public class Controller : MonoBehaviour
 				break;
 			case 3 :
 				manager.AttackTile (position.x-1, position.y);
-				spear.GoLeft ();
+				spear.GoLeft (self.position);
 				while(i<board.width)
 				{
 					i++;

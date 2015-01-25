@@ -17,31 +17,35 @@ public class Spear : MonoBehaviour {
 		self.Translate (moveDir * speed * Time.deltaTime, Space.World);
 	}
 
-	public void GoUp()
+	public void GoUp(Vector3 init)
 	{
 		self.localScale = new Vector3(1, -1, 1);
 		moveDir = new Vector3(2, 1);
 		moveDir = moveDir.normalized;
+		self.position = init;
 	}
 
-	public void GoRight()
+	public void GoRight(Vector3 init)
 	{
 		self.localScale = new Vector3(1, 1, 1);
 		moveDir = new Vector3(2, -1);
 		moveDir = moveDir.normalized;
+		self.position = init;
 	}
 
-	public void GoDown()
+	public void GoDown(Vector3 init)
 	{
 		self.localScale = new Vector3(-1, 1, 1);
 		moveDir = new Vector3(-2, -1);
 		moveDir = moveDir.normalized;
+		self.position = init;
 	}
 
-	public void GoLeft()
+	public void GoLeft(Vector3 init)
 	{
 		self.localScale = new Vector3(-1, 1, 1);
 		moveDir = new Vector3(-2, 1);
 		moveDir = moveDir.normalized;
+		self.position = init;
 	}
 }
