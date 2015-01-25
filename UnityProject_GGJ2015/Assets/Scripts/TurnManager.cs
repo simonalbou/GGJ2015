@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour {
 	public BoardData board;
 	public Controller[] players;
 	public Camera cam;
+	AsyncOperation async;
 
 	private bool gameOver;
 
@@ -45,9 +46,27 @@ public class TurnManager : MonoBehaviour {
 		turnIndex = 0;
 		gameOver = false;
 	}
-	
+
+	IEnumerator Chargement(string levelName) {
+		async = Application.LoadLevelAdditiveAsync(levelName);
+		async.allowSceneActivation = false;
+		yield return async;
+	}
+
 	void Update ()
 	{
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			StartCoroutine("Chargement", "Scene_6x6");
+		}
+		if (async != null && async.progress >= 0.9f) {
+			async.allowSceneActivation = true;
+			board = GameObject.Find ("Board").GetComponent<BoardData>();
+			players[0] = GameObject.Find ("Player1").GetComponent<Controller>();
+			players[1] = GameObject.Find ("Player2").GetComponent<Controller>();
+			players[0].manager = this;
+			players[1].manager = this;
+		}
+
 		if(gameOver && gameOverTimestamp < Time.time)
 		{
 			cam.backgroundColor = Color.black;
