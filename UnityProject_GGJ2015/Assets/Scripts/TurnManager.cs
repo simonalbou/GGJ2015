@@ -16,6 +16,7 @@ public class TurnManager : MonoBehaviour {
 	private float gameOverTimestamp;
 
 	public Transform[] collectibles;
+	public SpriteRenderer[] collectibleSprites;
 	[HideInInspector]
 	public bool collectibleSpinHere;
 
@@ -39,6 +40,10 @@ public class TurnManager : MonoBehaviour {
 	 * 1 : le joueur a fait son move (et bouge)
 	 * 2 : chute dans la lave
 	 * 3 : chute dans le vide
+	 * 4 : mort par arme
+	 * 5 : spin attack
+	 * 6 : javelot
+	 * 7 : pop d'un power up
 	 */ 
 
 	public Transform powerUpParticles;
@@ -209,9 +214,11 @@ public class TurnManager : MonoBehaviour {
 
 	void SpawnCollectible()
 	{
+		selfAudio.PlayOneShot(SFX[7]);
 		currentAvailableBonus = Random.Range (0, collectibles.Length);
 		spinCollCoords = board.GetRandomAvailableTile();
 		collectibles[currentAvailableBonus].position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
+		collectibleSprites[currentAvailableBonus].sortingOrder = (int)(spinCollCoords.x - spinCollCoords.y) * 4 + 1;
 		collectibleSpinHere = true;
 	}
 
