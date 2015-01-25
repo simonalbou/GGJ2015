@@ -7,6 +7,7 @@ public enum DeathType { Stabbed, Lava, FellOff }
 public class Controller : MonoBehaviour
 {
 	public float speed;
+	[HideInInspector]
 	public Vector3 targetPos;
 
 	public bool isPlayer2;
@@ -39,7 +40,8 @@ public class Controller : MonoBehaviour
 
 	private bool dead;
 
-	private bool stillMoving;
+	[HideInInspector]
+	public bool stillMoving, stillAttacking;
 
 	// Use this for initialization
 	void Start () {
@@ -59,22 +61,37 @@ public class Controller : MonoBehaviour
 		RefreshPosition();
 
 		self.position = targetPos;
+
+		stillMoving = false;
+
+		manager.ChangeTurn();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(dead) return;
-		if(stillMoving)
+		if(stillMoving && !stillAttacking)
 		{
+			Debug.Log (name);
 			self.Translate(Vector3.Normalize(targetPos-self.position) * speed * Time.deltaTime);
 			if(Vector3.Distance(targetPos, self.position) < 0.1f)
 			{
 				self.position = targetPos;
 				stillMoving = false;
+				EndTurn();
 			}
+
 		}
 		UpdateInput();
 		//if(leftInput) Debug.Log (name);
+	}
+
+	// Animation Event
+	public void DoneAttacking()
+	{
+		stillAttacking = false;
+		stillMoving = false;
+		EndTurn ();
 	}
 
 	void LoadInput()
@@ -172,11 +189,27 @@ public class Controller : MonoBehaviour
 		downInput = false;
 	}
 
+	void EndTurn()
+	{
+		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
+		{
+			if(position.x < 0 || position.y >= board.height) selfRenderer.sortingOrder = -100;
+			if(position.x >= board.width || position.y < 0) selfRenderer.sortingOrder = 100;
+			Die (DeathType.FellOff);
+			return;
+		}
+		
+		if(board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
+
+		manager.ChangeTurn();
+	}
+
 	public bool DoMove()
 	{
 		switch(storedMoves[storedMoves.Length-1])
 		{
 			case -1 :
+				return false;
 				break;
 			case 0 :
 				MoveUp();
@@ -249,6 +282,7 @@ public class Controller : MonoBehaviour
 
 	public void Attack()
 	{
+		stillAttacking = true;
 		if(range == AttackRange.SingleAttack) SingleAttack();
 		if(range == AttackRange.SpinAttack) SpinAttack();
 		if(range == AttackRange.LongShot) LongShot();
@@ -347,16 +381,6 @@ public class Controller : MonoBehaviour
 		else daggerRenderer.sortingOrder++;
 		selfAnim.SetInteger("I_Orientation", orientation);
 		daggerAnim.SetInteger("I_Orientation", orientation);
-
-		if(position.x < 0 || position.y < 0 || position.x >= board.width || position.y >= board.height)
-		{
-			if(position.x < 0 || position.y >= board.height) selfRenderer.sortingOrder = -100;
-			if(position.x >= board.width || position.y < 0) selfRenderer.sortingOrder = 100;
-			Die (DeathType.FellOff);
-			return;
-		}
-
-		if(board.isDeadly((int)position.x, (int)position.y)) Die (DeathType.Lava);
 	}
 
 	// animation event

@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour {
 
 	private bool gameOver;
 
+	public Transform glowTileUp, glowTileDown, glowTileRight, glowTileLeft;
+
 	void Start ()
 	{
 		turnIndex = 0;
@@ -25,13 +27,22 @@ public class TurnManager : MonoBehaviour {
 			return;
 		}
 
+		if(players[turnIndex].stillMoving || players[turnIndex].stillAttacking) return;
+
 		if(players[turnIndex].leftInput)
 		{
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 3;
 				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
-				ChangeTurn();
+				//ChangeTurn();
+				return;
+			}
+			else
+			{
+				players[turnIndex].storedMoves[0] = 3;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
+				ChangeTurn ();
 				return;
 			}
 		}
@@ -41,7 +52,14 @@ public class TurnManager : MonoBehaviour {
 			{
 				players[turnIndex].storedMoves[0] = 1;
 				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
-				ChangeTurn();
+				//ChangeTurn();
+				return;
+			}
+			else
+			{
+				players[turnIndex].storedMoves[0] = 1;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
+				ChangeTurn ();
 				return;
 			}
 		}
@@ -51,7 +69,14 @@ public class TurnManager : MonoBehaviour {
 			{
 				players[turnIndex].storedMoves[0] = 0;
 				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
-				ChangeTurn();
+				//ChangeTurn();
+				return;
+			}
+			else
+			{
+				players[turnIndex].storedMoves[0] = 0;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
+				ChangeTurn ();
 				return;
 			}
 		}
@@ -61,7 +86,14 @@ public class TurnManager : MonoBehaviour {
 			{
 				players[turnIndex].storedMoves[0] = 2;
 				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
-				ChangeTurn();
+				//ChangeTurn();
+				return;
+			}
+			else
+			{
+				players[turnIndex].storedMoves[0] = 2;
+				if(players[turnIndex].cooldown > 0) players[turnIndex].cooldown--;
+				ChangeTurn ();
 				return;
 			}
 		}
@@ -71,10 +103,18 @@ public class TurnManager : MonoBehaviour {
 			{
 				players[turnIndex].storedMoves[0] = 4;
 				players[turnIndex].cooldown = players[turnIndex].memoryAmount;
-				ChangeTurn();
+				//ChangeTurn();
+				return;
+			}
+			else
+			{
+				players[turnIndex].storedMoves[0] = 4;
+				players[turnIndex].cooldown = players[turnIndex].memoryAmount;
+				ChangeTurn ();
 				return;
 			}
 		}
+
 		if(players[turnIndex].attackInput && players[turnIndex].cooldown == 0)
 			Debug.Log ("heh");
 	}
@@ -93,6 +133,25 @@ public class TurnManager : MonoBehaviour {
 				cam.backgroundColor = new Color(0.25f,0,0);
 				break;
 		}
+
+		glowTileUp.position = Vector3.up*3000;
+		glowTileDown.position = Vector3.up*3000;
+		glowTileLeft.position = Vector3.up*3000;
+		glowTileRight.position = Vector3.up*3000;
+
+		if(gameOver) return;
+
+		int x = (int)players[turnIndex].position.x;
+		int y = (int)players[turnIndex].position.y;
+
+		if(board.isWalkable(x-1, y) && !board.isDeadly (x-1, y) && board.isExisting(x-1, y))
+			glowTileLeft.position = board.tiles[x-1,y].transform.position;
+		if(board.isWalkable(x+1, y) && !board.isDeadly (x+1, y) && board.isExisting(x+1, y))
+			glowTileRight.position = board.tiles[x+1,y].transform.position;
+		if(board.isWalkable(x, y+1) && !board.isDeadly (x, y+1) && board.isExisting(x, y+1))
+			glowTileUp.position = board.tiles[x,y+1].transform.position;
+		if(board.isWalkable(x, y-1) && !board.isDeadly (x, y-1) && board.isExisting(x, y-1))
+			glowTileDown.position = board.tiles[x,y-1].transform.position;
 	}
 
 	public bool CheckRoom(float x, float y)

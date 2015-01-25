@@ -46,6 +46,10 @@ TagManager:
     userID: 1
     uniqueID: 2553372741
     locked: 0
+  - name: GlowingTiles
+    userID: 4
+    uniqueID: 2502513967
+    locked: 0
   - name: SpecialTiles
     userID: 2
     uniqueID: 1898203381

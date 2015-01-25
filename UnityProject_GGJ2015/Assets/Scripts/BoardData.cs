@@ -83,6 +83,12 @@ public class BoardData : MonoBehaviour {
 	}
 
 	public bool isWalkable(int x, int y){
+
+		if (x < 0) return true;
+		if (y < 0) return true;
+		if (x >= width) return true;
+		if (y >= height) return true;
+
 		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].gameObject == v_pine){
 			return false;
 		}
@@ -90,10 +96,26 @@ public class BoardData : MonoBehaviour {
 	}
 
 	public bool isDeadly(int x, int y){
+
+		if (x < 0) return false;
+		if (y < 0) return false;
+		if (x >= width) return false;
+		if (y >= height) return false;
+
 		if(propsSprites[x,y].sprite == v_lava){
 			return true;
 		}
 		return false;
+	}
+
+	public bool isExisting(int x, int y)
+	{
+		if (x < 0) return false;
+		if (y < 0) return false;
+		if (x >= width) return false;
+		if (y >= height) return false;
+
+		return true;
 	}
 
 
@@ -227,6 +249,7 @@ public class BoardData : MonoBehaviour {
 					GameObject clonePine = Instantiate(v_pine, propsSprites[x,y].gameObject.transform.position + new Vector3(0,0.3f,0), Quaternion.identity) as GameObject;
 					break;
 				}
+				propsSprites[x,y].sortingOrder = (x-y)*4;
 			}
 		} 
 

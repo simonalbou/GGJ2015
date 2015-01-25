@@ -943,10 +943,10 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SpinRight
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 74ffe0947f15e5f45b3071674e9e4205, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 660, y: 168, z: 0}
   m_IKOnFeet: 0
@@ -958,10 +958,10 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SpinDown
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 74ffe0947f15e5f45b3071674e9e4205, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: -84, y: 396, z: 0}
   m_IKOnFeet: 0
@@ -1108,10 +1108,10 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SpinUp
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 74ffe0947f15e5f45b3071674e9e4205, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 336, y: -36, z: 0}
   m_IKOnFeet: 0
@@ -1168,10 +1168,10 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SpinLeft
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 74ffe0947f15e5f45b3071674e9e4205, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: -228, y: 264, z: 0}
   m_IKOnFeet: 0
