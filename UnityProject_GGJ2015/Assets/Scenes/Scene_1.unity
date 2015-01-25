@@ -1692,11 +1692,11 @@ Prefab:
       objectReference: {fileID: 202940824}
     - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: position.x
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: position.y
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
@@ -1778,7 +1778,7 @@ Transform:
   m_PrefabInternal: {fileID: 2039827388}
   m_GameObject: {fileID: 837686920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.03999996, y: 0, z: 0}
+  m_LocalPosition: {x: 3.125, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 204217924}
@@ -4609,7 +4609,7 @@ MonoBehaviour:
   downInput: 0
   attackInput: 0
   orientation: 0
-  position: {x: 7, y: 7}
+  position: {x: 2, y: 1}
   self: {fileID: 1398098382}
   selfRenderer: {fileID: 1398098381}
   daggerRenderer: {fileID: 2025855011}
@@ -4692,6 +4692,10 @@ Prefab:
     - target: {fileID: 11400000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
       propertyPath: position.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d698aca681df0c445a2ace8a7dc877d9, type: 2}
