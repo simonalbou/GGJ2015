@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 11400000}
-  selfAudio: {fileID: 0}
+  selfAudio: {fileID: 8200000}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

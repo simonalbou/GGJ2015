@@ -7,5 +7,5 @@ public class KeyBindingP2 : MonoBehaviour {
 	public static KeyCode[] rightKeys = { KeyCode.RightArrow };
 	public static KeyCode[] upKeys = { KeyCode.UpArrow };
 	public static KeyCode[] downKeys = { KeyCode.DownArrow };
-	public static KeyCode[] attackKeys = { KeyCode.RightControl, KeyCode.RightShift, KeyCode.Joystick2Button0 };
+	public static KeyCode[] attackKeys = { KeyCode.RightControl, KeyCode.Joystick2Button0 };
 }

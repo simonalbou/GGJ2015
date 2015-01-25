@@ -34,7 +34,7 @@ public class BoardData : MonoBehaviour {
 	public Sprite v_default;
 	public Sprite v_upperLeftCorner, v_upperRightCorner, v_lowerLeftCorner, v_lowerRightCorner;
 	public Sprite v_upperBorder, v_rightBorder,  v_lowerBorder, v_leftBorder;
-	public Sprite v_lava, v_column, v_columnSmall, v_rock, v_fire, v_statue;
+	public Sprite v_lava, v_column, v_columnSmall, v_rock, v_fire, v_statue, v_trunk;
 	public GameObject particlesLava, particlesFire, v_pine;
 
 	public const string Default = "0";
@@ -56,6 +56,8 @@ public class BoardData : MonoBehaviour {
 	public const string Statue = "6";
 	public const string Pine = "7";
 
+	[HideInInspector]
+	public List<Vector2> treeTiles;
 
 	[HideInInspector]
 	public List<Sprite> spriteCollision;
@@ -89,9 +91,13 @@ public class BoardData : MonoBehaviour {
 		if (x >= width) return true;
 		if (y >= height) return true;
 
-		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].gameObject == v_pine){
+		Vector2 coords = new Vector2(x,y);
+		if(treeTiles.Contains(coords)) return false;
+
+		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].transform.parent.gameObject == v_pine){
 			return false;
 		}
+
 		return true;
 	}
 
@@ -146,7 +152,7 @@ public class BoardData : MonoBehaviour {
 		string[][] jaggedProps = readFile(textAssetProps.text);
 
 		spriteCollision = new List<Sprite> ();
-		//spriteCollision.Add (v_lava);
+		spriteCollision.Add (v_trunk);
 		spriteCollision.Add (v_column);
 		spriteCollision.Add (v_columnSmall);
 		spriteCollision.Add (v_rock);
@@ -163,6 +169,8 @@ public class BoardData : MonoBehaviour {
 		tilesSprites = new SpriteRenderer[width,height];
 		props = new GameObject[width,height];
 		propsSprites = new SpriteRenderer[width,height];
+
+		treeTiles = new List<Vector2>();
 
 
 		for(int j=0; j<height; j++)
@@ -270,6 +278,7 @@ public class BoardData : MonoBehaviour {
 						i.gameObject.GetComponent<SpriteRenderer>().sortingOrder = (x-y)*4+1;
 					}
 					clonePine.transform.parent = self.transform;
+					treeTiles.Add(new Vector2(x,y));
 					break;
 				}
 				propsSprites[x,y].sortingOrder = (x-y)*4;

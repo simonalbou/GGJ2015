@@ -37,7 +37,7 @@ AudioSource:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 2de45b2e1d1eeb14a80abbfe7dc7e55a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 38260f8134aee5444b5a85f388fddd1c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   self: {fileID: 8200000}
-  start: {fileID: 8300000, guid: 2de45b2e1d1eeb14a80abbfe7dc7e55a, type: 3}
+  start: {fileID: 8300000, guid: 38260f8134aee5444b5a85f388fddd1c, type: 3}
   loop: {fileID: 8300000, guid: 1f59ee52a1f3eef48a5fcd97e7e6dafa, type: 3}
 --- !u!1001 &100100000
 Prefab:

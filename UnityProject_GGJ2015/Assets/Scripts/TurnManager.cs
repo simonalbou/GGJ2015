@@ -41,6 +41,9 @@ public class TurnManager : MonoBehaviour {
 	 * 3 : chute dans le vide
 	 */ 
 
+	public Transform powerUpParticles;
+	public ParticleSystem[] powerUpParticleSystems;
+
 	void Start ()
 	{
 		turnIndex = 0;
@@ -214,6 +217,12 @@ public class TurnManager : MonoBehaviour {
 
 	public void DestroyCollectible()
 	{
+		powerUpParticles.position = collectibles[currentAvailableBonus].position + Vector3.up *0.5f;
+		foreach(ParticleSystem ps in powerUpParticleSystems)
+		{
+			ps.Play ();
+			ps.GetComponent<FixedParticles>().self.sortingOrder = (int)(spinCollCoords.x - spinCollCoords.y)*4+3;
+		}
 		collectibles[currentAvailableBonus].position = Vector3.up * 3000;
 		collectibleSpinHere = false;
 		selfAudio.PlayOneShot(SFX[0]);
