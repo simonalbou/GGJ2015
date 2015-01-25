@@ -34,7 +34,7 @@ public class BoardData : MonoBehaviour {
 	public Sprite v_default;
 	public Sprite v_upperLeftCorner, v_upperRightCorner, v_lowerLeftCorner, v_lowerRightCorner;
 	public Sprite v_upperBorder, v_rightBorder,  v_lowerBorder, v_leftBorder;
-	public Sprite v_lava, v_column, v_columnSmall, v_rock, v_fire, v_statue, v_trunk;
+	public Sprite v_lava, v_column, v_columnSmall, v_rock, v_fire, v_statue;
 	public GameObject particlesLava, particlesFire, v_pine;
 
 	public const string Default = "0";
@@ -92,9 +92,15 @@ public class BoardData : MonoBehaviour {
 		if (y >= height) return true;
 
 		Vector2 coords = new Vector2(x,y);
-		if(treeTiles.Contains(coords)) return false;
+		if(treeTiles.Contains(coords))
+		{
+			//Debug.Log (x.ToString()+","+y.ToString()+" is a tree");
+			return false;
+		}
 
 		if(spriteCollision.Contains(propsSprites[x,y].sprite) || propsSprites[x,y].transform.parent.gameObject == v_pine){
+			//Debug.Log (x.ToString()+","+y.ToString()+" meh");
+			//Debug.Log (spriteCollision.Contains(propsSprites[x,y].sprite));
 			return false;
 		}
 
@@ -152,7 +158,7 @@ public class BoardData : MonoBehaviour {
 		string[][] jaggedProps = readFile(textAssetProps.text);
 
 		spriteCollision = new List<Sprite> ();
-		spriteCollision.Add (v_trunk);
+		//spriteCollision.Add (v_trunk);
 		spriteCollision.Add (v_column);
 		spriteCollision.Add (v_columnSmall);
 		spriteCollision.Add (v_rock);

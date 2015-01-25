@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour {
 
 	private bool gameOver;
 
-	public Transform glowTileUp, glowTileDown, glowTileRight, glowTileLeft;
+	public Transform glowTileUp, glowTileDown, glowTileRight, glowTileLeft, shadowTile;
 
 	private float gameOverTimestamp;
 
@@ -220,6 +220,7 @@ public class TurnManager : MonoBehaviour {
 		collectibles[currentAvailableBonus].position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
 		collectibleSprites[currentAvailableBonus].sortingOrder = (int)(spinCollCoords.x - spinCollCoords.y) * 4 + 1;
 		collectibleSpinHere = true;
+		shadowTile.position = board.tiles[(int)spinCollCoords.x, (int)spinCollCoords.y].transform.position;
 	}
 
 	public void DestroyCollectible()
@@ -231,6 +232,7 @@ public class TurnManager : MonoBehaviour {
 			ps.GetComponent<FixedParticles>().self.sortingOrder = (int)(spinCollCoords.x - spinCollCoords.y)*4+3;
 		}
 		collectibles[currentAvailableBonus].position = Vector3.up * 3000;
+		shadowTile.position = Vector3.up * 3000;
 		collectibleSpinHere = false;
 		selfAudio.PlayOneShot(SFX[0]);
 	}
