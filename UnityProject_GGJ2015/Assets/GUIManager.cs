@@ -145,6 +145,9 @@ public class GUIManager : MonoBehaviour {
 				sceneNames[1] = "Scene_9x9";
 				sceneNames[2] = "Scene_12x12";
 
+
+				Controller.staticMem = Random.Range(1, 4);
+				Debug.Log (Controller.staticMem);
 				Application.LoadLevelAsync(sceneNames[Random.Range(0,3)]);
 
 
