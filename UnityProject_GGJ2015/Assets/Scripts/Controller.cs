@@ -52,6 +52,7 @@ public class Controller : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		memoryAmount = Controller.staticMem;
+		if(memoryAmount == 0) memoryAmount++;
 		LoadInput();
 		storedMoves = new int[memoryAmount];
 		for(int i=0; i<storedMoves.Length; i++)
