@@ -100,6 +100,7 @@ public class TurnManager : MonoBehaviour {
 
 		if(players[turnIndex].leftInput)
 		{
+
 			if(players[turnIndex].DoMove())
 			{
 				players[turnIndex].storedMoves[0] = 3;

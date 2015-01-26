@@ -51,8 +51,7 @@ public class Controller : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		//memoryAmount = Controller.staticMem;
-		//Debug.Log (memoryAmount);
+		memoryAmount = Controller.staticMem;
 		LoadInput();
 		storedMoves = new int[memoryAmount];
 		for(int i=0; i<storedMoves.Length; i++)
@@ -241,6 +240,10 @@ public class Controller : MonoBehaviour
 		switch(storedMoves[storedMoves.Length-1])
 		{
 			case -1 :
+				for(int i=storedMoves.Length-1; i>0; i--)
+				{
+					storedMoves[i] = storedMoves[i-1];
+				}
 				return false;
 			case 0 :
 				MoveUp();
@@ -259,10 +262,17 @@ public class Controller : MonoBehaviour
 				break;
 		}
 
-		for(int i=1; i<storedMoves.Length; i++)
+		for(int i=storedMoves.Length-1; i>0; i--)
 		{
 			storedMoves[i] = storedMoves[i-1];
 		}
+		///////
+		/*for(int i=1; i<storedMoves.Length; i++)
+		{
+			storedMoves[i] = storedMoves[i-1];
+		}*/
+
+
 
 		return true;
 	}
