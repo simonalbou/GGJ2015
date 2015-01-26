@@ -430,6 +430,8 @@ public class Controller : MonoBehaviour
 				}
 				break;
 		}
+
+		DoneAttacking();
 	}
 
 	public void RefreshPosition()
